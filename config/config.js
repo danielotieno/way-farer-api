@@ -1,3 +1,4 @@
+// Variables configuration
 import dotenv from 'dotenv'
 import Joi from '@hapi/joi'
 

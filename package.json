@@ -1,0 +1,9 @@
+{
+  "name": "way-farer-api",
+  "version": "1.0.0",
+  "description": "WayFarer is a public bus transportation booking service.",
+  "main": "index.js",
+  "repository": "git@github.com:danielotieno/way-farer-api.git",
+  "author": "Daniel Otieno <danielotieno.ke@gmail.com>",
+  "license": "MIT"
+}

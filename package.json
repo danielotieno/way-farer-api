@@ -6,7 +6,7 @@
     "scripts": {
         "start:dev": "nodemon -r esm index.js",
         "start": "node -r esm index.js",
-        "test": "NODE_ENV=test jest --passWithNoTests --coverage --coverageReporters=text-lcov | coveralls"
+        "test:coveralls": "NODE_ENV=test jest --coverage --passWithNoTests --coverageReporters=text-lcov | coveralls"
     },
     "repository": "git@github.com:danielotieno/way-farer-api.git",
     "author": "Daniel Otieno <danielotieno.ke@gmail.com>",

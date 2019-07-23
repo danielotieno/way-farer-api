@@ -12,8 +12,5 @@ addons:
 script:
   - yarn run test
 
-before_script:
-  - yarn add codeclimate-test-reporter istanbul -g
-
 after_script:
-  - codeclimate-test-reporter < ./coverage/lcov.info
+  - yarn run test:coveralls

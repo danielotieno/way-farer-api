@@ -1,0 +1,16 @@
+sudo: false
+
+language: node_js
+
+node_js:
+  - 10
+
+addons:
+  code_climate:
+    repo_token: df12eef77117e18e040c00aa04d01fd26b503e250181c7c20c9c2138e00c6d63
+
+script:
+  - yarn run jest
+
+after_script:
+  - yarn run test:coveralls

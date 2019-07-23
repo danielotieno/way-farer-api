@@ -4,10 +4,9 @@
     "description": "WayFarer is a public bus transportation booking service.",
     "main": "index.js",
     "scripts": {
-        "dev": "nodemon -r esm index.js",
+        "start:dev": "nodemon -r esm index.js",
         "start": "node -r esm index.js",
-        "test": "NODE_ENV=test jest --no-cache  --detectOpenHandles --runInBand --forceExit",
-        "test:coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
+        "test": "NODE_ENV=test jest --passWithNoTests --coverage --coverageReporters=text-lcov | coveralls"
     },
     "repository": "git@github.com:danielotieno/way-farer-api.git",
     "author": "Daniel Otieno <danielotieno.ke@gmail.com>",

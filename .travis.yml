@@ -6,4 +6,4 @@ node_js:
   - 10
 
 script:
-  - yarn run test:coveralls
+  - yarn run test

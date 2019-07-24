@@ -15,7 +15,8 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
-  - yarn run test:coveralls
+  - yarn run jest
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - yarn run test:coveralls

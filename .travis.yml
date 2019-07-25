@@ -2,7 +2,7 @@ sudo: false
 
 env:
   global:
-    - CC_TEST_REPORTER_ID=df12eef77117e18e040c00aa04d01fd26b503e250181c7c20c9c2138e00c6d63
+    - CC_TEST_REPORTER_ID=process.env.CC_TEST_REPORTER_ID
 
 language: node_js
 
@@ -20,7 +20,10 @@ install:
 script:
   - yarn run jest
 
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
 after_success:
   - bash <(curl -s https://codecov.io/bash) -e TRAVIS_NODE_VERSION
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   - yarn run test
+  - yarn run codecov

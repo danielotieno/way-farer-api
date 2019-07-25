@@ -1,1 +1,1 @@
-repo_token: ANgVBmPp0WaS5v1tPcbtJHsPNZfedyvwp
+repo_token: process.env.COVERALLS_TOKEN

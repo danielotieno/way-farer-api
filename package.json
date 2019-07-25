@@ -6,7 +6,7 @@
     "scripts": {
         "start:dev": "nodemon -r esm index.js",
         "start": "node -r esm index.js",
-        "test:coveralls": "NODE_ENV=test jest --coverage && cat ./coverage/lcov.info | coveralls"
+        "test": "NODE_ENV=test jest --coverage && cat ./tests/coverage/lcov.info | coveralls"
     },
     "repository": "git@github.com:danielotieno/way-farer-api.git",
     "author": "Daniel Otieno <danielotieno.ke@gmail.com>",
@@ -25,6 +25,7 @@
         "uuid": "^3.3.2"
     },
     "devDependencies": {
+        "codecov": "^3.5.0",
         "coveralls": "^3.0.5",
         "eslint-config-prettier": "^6.0.0",
         "eslint-plugin-flowtype": "^3.12.1",

@@ -11,7 +11,9 @@ class TripsController {
     if (error)
       return res.status(400).send({ status: 'error', error: error.details })
     const trip = await TripModel.createTrip(req.body)
-    return res.status(201).send({ status: 'success', data: trip })
+    return res
+      .status(201)
+      .send({ status: 'trip created successfully', data: trip })
   }
 }
 

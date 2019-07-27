@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/danielotieno/way-farer-api.svg?branch=develop)](https://travis-ci.org/danielotieno/way-farer-api)[![Maintainability](https://api.codeclimate.com/v1/badges/89c988eb1fc6305e7577/maintainability)](https://codeclimate.com/github/danielotieno/way-farer-api/maintainability)
+
 # Welcome to WayFare Booking Service API
 
 WayFarer is a public bus transportation booking service.

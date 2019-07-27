@@ -1,16 +1,29 @@
 sudo: false
 
+env:
+  global:
+    - CC_TEST_REPORTER_ID=df12eef77117e18e040c00aa04d01fd26b503e250181c7c20c9c2138e00c6d63
+
 language: node_js
 
 node_js:
-  - 10
+  - "v11.0.0"
 
-addons:
-  code_climate:
-    repo_token: df12eef77117e18e040c00aa04d01fd26b503e250181c7c20c9c2138e00c6d63
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+install:
+  - yarn install
 
 script:
   - yarn run jest
 
 after_script:
-  - yarn run test:coveralls
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -e TRAVIS_NODE_VERSION
+  - yarn run test
+  - yarn run codecov

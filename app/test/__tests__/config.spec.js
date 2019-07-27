@@ -1,4 +1,4 @@
-describe('Config Environments ', () => {
+describe('config Environments ', () => {
   describe('Get env variables', () => {
     test('it should get env', () => {
       // lets test it can define true

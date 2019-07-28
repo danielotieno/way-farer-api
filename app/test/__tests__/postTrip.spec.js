@@ -2,7 +2,7 @@ import app from '../../index'
 
 const request = require('supertest')
 
-describe('Test the root path', () => {
+describe('Test creating a trip', () => {
   // eslint-disable-next-line prettier/prettier
   test('Create a trip without seating capacity', async() => {
     const payload = {

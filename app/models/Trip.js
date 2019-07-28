@@ -25,5 +25,10 @@ class Trip {
     this.trips.push(newTrip)
     return newTrip
   }
+
+  // Returns all trips
+  allTrips() {
+    return this.trips
+  }
 }
 export default new Trip()

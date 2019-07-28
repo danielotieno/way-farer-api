@@ -15,6 +15,13 @@ class TripsController {
       .status(201)
       .send({ status: 'trip created successfully', data: trip })
   }
+
+  // Get all trip
+
+  static async getAllTrips(req, res) {
+    const trips = TripModel.allTrips()
+    return res.status(200).send({ status: 'success', trips })
+  }
 }
 
 export default TripsController

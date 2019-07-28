@@ -30,5 +30,10 @@ class Trip {
   allTrips() {
     return this.trips
   }
+
+  // Return a Single trip
+  singleTrip(id) {
+    return this.trips.find(trip => trip.id === id)
+  }
 }
 export default new Trip()

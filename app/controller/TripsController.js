@@ -22,6 +22,16 @@ class TripsController {
     const trips = TripModel.allTrips()
     return res.status(200).send({ status: 'success', trips })
   }
+
+  // Get a specific trip
+
+  static async getSingleTrip(req, res) {
+    const trip = await TripModel.singleTrip(req.params.id)
+    if (!trip) {
+      return res.status(404).send({ status: 'error', error: 'trip not found' })
+    }
+    return res.status(200).send({ status: 'success', trip })
+  }
 }
 
 export default TripsController

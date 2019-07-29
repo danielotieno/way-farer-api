@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.org/danielotieno/way-farer-api.svg?branch=develop)](https://travis-ci.org/danielotieno/way-farer-api)[![Maintainability](https://api.codeclimate.com/v1/badges/89c988eb1fc6305e7577/maintainability)](https://codeclimate.com/github/danielotieno/way-farer-api/maintainability)
+[![Build Status](https://travis-ci.org/danielotieno/way-farer-api.svg?branch=develop)](https://travis-ci.org/danielotieno/way-farer-api)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/89c988eb1fc6305e7577/test_coverage)](https://codeclimate.com/github/danielotieno/way-farer-api/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/89c988eb1fc6305e7577/maintainability)](https://codeclimate.com/github/danielotieno/way-farer-api/maintainability)
 [![codecov](https://codecov.io/gh/danielotieno/way-farer-api/branch/develop/graph/badge.svg)](https://codecov.io/gh/danielotieno/way-farer-api)
 
 # Welcome to WayFare Booking Service API
@@ -13,24 +15,24 @@ create and manage trips.
 Appart from normal authentication the app will provide the following
 functionality
 
-* Creating Trips
-* Booking a Trip
+- Creating Trips
+- Booking a Trip
 
 An Admin user can perform the following:
 
-* Create a trip.
-* Cancel a trip.
-* See all trips.
-* See a specific trip.
-* See all bookings.
+- Create a trip.
+- Cancel a trip.
+- See all trips.
+- See a specific trip.
+- See all bookings.
 
 A normal user can perform the following:
 
-* See all trips.
-* See a specific trip.
-* Book a seat on a trip.
-* See his/her bookings.
-* Delete a booking
+- See all trips.
+- See a specific trip.
+- Book a seat on a trip.
+- See his/her bookings.
+- Delete a booking
 
 The following endpoints should be available to use once the API is complete:
 
@@ -82,4 +84,3 @@ Then run the command below to start the application in development mode
 `git checkout master`
 
 The application is under constant development. The `develop` branch has the latest changes added into the app
-

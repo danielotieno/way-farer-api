@@ -13,7 +13,7 @@ class TripsController {
     const trip = await TripModel.createTrip(req.body)
     return res
       .status(201)
-      .send({ status: 'trip created successfully', data: trip })
+      .send({ status: 'Trip created successfully', data: trip })
   }
 
   // Get all trip

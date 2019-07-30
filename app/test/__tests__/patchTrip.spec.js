@@ -2,16 +2,16 @@ import app from '../../index'
 
 const request = require('supertest')
 
-describe('Test get a specific Trip', () => {
+describe('Test PATCH a specific Trip', () => {
   // eslint-disable-next-line prettier/prettier
-  test('It should respond with not found when passing wrong id', async() => {
-    const response = await request(app).get('/api/v1/trips/1')
+  test('It should respond with trip not found when passing wrong id', async() => {
+    const response = await request(app).patch('/api/v1/trips/1/cancel')
     expect(JSON.parse(response.text).error).toEqual('Trip not found')
     expect(response.status).toBe(404)
   })
 
   // eslint-disable-next-line prettier/prettier
-  test('It should retrive back a trip with specific ID', async() => {
+  test('It should retrive back a cancelled trip', async() => {
     const payload = {
       seating_capacity: 24,
       bus_number: 'RAD 264 K',
@@ -23,13 +23,13 @@ describe('Test get a specific Trip', () => {
       .post('/api/v1/trips')
       .set('Content-Type', 'application/json')
       .send(payload)
-    const response = await request(app).get(`/api/v1/trips/${body.data.id}`)
-    expect(response.body.data).toHaveProperty('seating_capacity', 24)
-    expect(response.body.data).toHaveProperty('bus_number', 'RAD 264 K')
-    expect(response.body.data).toHaveProperty('origin', 'Mombasa')
-    expect(response.body.data).toHaveProperty('destination', 'Kigali')
-    expect(response.body.data).toHaveProperty('fare', 4600.0)
+    const response = await request(app).patch(
+      `/api/v1/trips/${body.data.id}/cancel`,
+    )
     expect(JSON.parse(response.text).status).toEqual('success')
+    expect(JSON.parse(response.text).data.message).toEqual(
+      'Trip cancelled successfully',
+    )
     expect(response.status).toBe(200)
   })
 })

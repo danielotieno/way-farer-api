@@ -107,7 +107,7 @@ describe('Test creating a trip', () => {
       .set('Content-Type', 'application/json')
       .send(payload)
     expect(JSON.parse(response.text).status).toEqual(
-      'trip created successfully',
+      'Trip created successfully',
     )
     expect(response.status).toBe(201)
   })

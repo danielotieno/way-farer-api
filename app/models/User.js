@@ -29,5 +29,15 @@ class UserModel {
   getUserEmail(email) {
     return this.users.find(user => user.email === email)
   }
+
+  // Return an user with id
+  getUserPassword(password) {
+    return this.users.find(user => user.password === password)
+  }
+
+  // Return an user with the role
+  getUserRole(role) {
+    return this.users.find(user => user.role === role)
+  }
 }
 export default new UserModel()

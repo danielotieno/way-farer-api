@@ -24,5 +24,10 @@ class UserModel {
     this.users.push(newUser)
     return newUser
   }
+
+  // Return an user with an email
+  getUserEmail(email) {
+    return this.users.find(user => user.email === email)
+  }
 }
 export default new UserModel()

@@ -4,13 +4,13 @@ import Joi from '@hapi/joi'
 // Trip Fields Validations
 const tripValidation = data => {
   const schema = {
-    seating_capacity: Joi.number()
+    seatingCapacity: Joi.number()
       .min(3)
       .max(24)
       .integer()
       .positive()
       .required(),
-    bus_number: Joi.string().required(),
+    busNumber: Joi.string().required(),
     origin: Joi.string().required(),
     destination: Joi.string().required(),
     fare: Joi.number()

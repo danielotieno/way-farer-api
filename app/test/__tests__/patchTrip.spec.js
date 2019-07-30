@@ -13,8 +13,8 @@ describe('Test PATCH a specific Trip', () => {
   // eslint-disable-next-line prettier/prettier
   test('It should retrive back a cancelled trip', async() => {
     const payload = {
-      seating_capacity: 24,
-      bus_number: 'RAD 264 K',
+      seatingCapacity: 24,
+      busNumber: 'RAD 264 K',
       origin: 'Mombasa',
       destination: 'Kigali',
       fare: 4600.0,

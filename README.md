@@ -1,7 +1,6 @@
 [![Build Status](https://travis-ci.org/danielotieno/way-farer-api.svg?branch=develop)](https://travis-ci.org/danielotieno/way-farer-api)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/89c988eb1fc6305e7577/test_coverage)](https://codeclimate.com/github/danielotieno/way-farer-api/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/89c988eb1fc6305e7577/maintainability)](https://codeclimate.com/github/danielotieno/way-farer-api/maintainability)
-[![codecov](https://codecov.io/gh/danielotieno/way-farer-api/branch/develop/graph/badge.svg)](https://codecov.io/gh/danielotieno/way-farer-api)
 
 # Welcome to WayFare Booking Service API
 
@@ -77,7 +76,7 @@ Then run the command below to run test
 
 Then run the command below to start the application in development mode
 
-`yarn start:dev`
+`yarn start`
 
 ### Switch to the master branch for stable/working features
 

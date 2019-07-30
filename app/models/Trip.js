@@ -14,13 +14,13 @@ class Trip {
   createTrip(data) {
     const newTrip = {
       id: uuid.v4(),
-      seating_capacity: data.seating_capacity,
-      bus_number: data.bus_number,
+      seatingCapacity: data.seatingCapacity,
+      busNumber: data.busNumber,
       origin: data.origin,
       destination: data.destination,
       fare: data.fare,
       status: data.status || 'active',
-      trip_date: now.format('DD-MM-YYYY'),
+      tripDate: now.format('DD-MM-YYYY'),
     }
     this.trips.push(newTrip)
     return newTrip
@@ -34,6 +34,19 @@ class Trip {
   // Return a Single trip
   singleTrip(id) {
     return this.trips.find(trip => trip.id === id)
+  }
+
+  // PATCH a specific trip
+  cancelTrip(id, data) {
+    const trip = this.singleTrip(id)
+    const index = this.trips.indexOf(trip)
+    this.trips[index].status = data.status
+    return this.trips[index].status
+  }
+
+  // Return a Bus number
+  getBusNumber(busNumber) {
+    return this.trips.find(trip => trip.busNumber === busNumber)
   }
 }
 export default new Trip()

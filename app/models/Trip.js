@@ -35,5 +35,14 @@ class Trip {
   singleTrip(id) {
     return this.trips.find(trip => trip.id === id)
   }
+
+  // PATCH a specific trip
+  cancelTrip(id, data) {
+    const trip = this.singleTrip(id)
+    const index = this.trips.indexOf(trip)
+    this.trips[index].status = data.status || trip.status
+
+    return this.trips[index]
+  }
 }
 export default new Trip()

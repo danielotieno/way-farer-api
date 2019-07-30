@@ -20,7 +20,7 @@ class TripsController {
 
   static async getAllTrips(req, res) {
     const trips = TripModel.allTrips()
-    return res.status(200).send({ status: 'success', trips })
+    return res.status(200).send({ status: 'success', data: trips })
   }
 
   // Get a specific trip
@@ -28,9 +28,24 @@ class TripsController {
   static async getSingleTrip(req, res) {
     const trip = await TripModel.singleTrip(req.params.id)
     if (!trip) {
-      return res.status(404).send({ status: 'error', error: 'trip not found' })
+      return res.status(404).send({ status: 'error', error: 'Trip not found' })
     }
-    return res.status(200).send({ status: 'success', trip })
+    return res.status(200).send({ status: 'success', data: trip })
+  }
+
+  // Patch a trip
+
+  static async cancelTrip(req, res) {
+    const trip = await TripModel.singleTrip(req.params.id)
+    if (!trip) {
+      return res.status(404).send({ status: 'error', error: 'Trip not found' })
+    }
+    const canceledTrip = await TripModel.cancelTrip(req.params.id, req.body)
+    return res.status(200).send({
+      status: 'success',
+      data: { message: 'Trip cancelled successfully' },
+      canceledTrip,
+    })
   }
 }
 

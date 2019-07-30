@@ -6,7 +6,7 @@ describe('Test get a specific Trip', () => {
   // eslint-disable-next-line prettier/prettier
   test('It should respond with not found when passing wrong id', async() => {
     const response = await request(app).get('/api/v1/trips/1')
-    expect(JSON.parse(response.text).error).toEqual('trip not found')
+    expect(JSON.parse(response.text).error).toEqual('Trip not found')
     expect(response.status).toBe(404)
   })
 

@@ -3,8 +3,7 @@ import app from '../../index'
 const request = require('supertest')
 
 describe('Test creating a trip', () => {
-  // eslint-disable-next-line prettier/prettier
-  test('Create a trip without seating capacity', async() => {
+  test('Create a trip without seating capacity', async () => {
     const payload = {
       busNumber: 'RAD 254 J',
       origin: 'Mombasa',
@@ -21,8 +20,7 @@ describe('Test creating a trip', () => {
     expect(response.status).toBe(400)
   })
 
-  // eslint-disable-next-line prettier/prettier
-  test('Create a trip without bus number', async() => {
+  test('Create a trip without bus number', async () => {
     const payload = {
       seatingCapacity: 10,
       origin: 'Mombasa',
@@ -39,8 +37,7 @@ describe('Test creating a trip', () => {
     expect(response.status).toBe(400)
   })
 
-  // eslint-disable-next-line prettier/prettier
-  test('Create a trip without origin', async() => {
+  test('Create a trip without origin', async () => {
     const payload = {
       seatingCapacity: 10,
       busNumber: 'RAD 264 K',
@@ -57,8 +54,7 @@ describe('Test creating a trip', () => {
     expect(response.status).toBe(400)
   })
 
-  // eslint-disable-next-line prettier/prettier
-  test('Create a trip without destination', async() => {
+  test('Create a trip without destination', async () => {
     const payload = {
       seatingCapacity: 10,
       busNumber: 'RAD 264 K',
@@ -75,8 +71,7 @@ describe('Test creating a trip', () => {
     expect(response.status).toBe(400)
   })
 
-  // eslint-disable-next-line prettier/prettier
-  test('Create a trip without fare', async() => {
+  test('Create a trip without fare', async () => {
     const payload = {
       seatingCapacity: 10,
       busNumber: 'RAD 264 K',
@@ -93,8 +88,7 @@ describe('Test creating a trip', () => {
     expect(response.status).toBe(400)
   })
 
-  // eslint-disable-next-line prettier/prettier
-  test('Create a trip successfully', async() => {
+  test('Create a trip successfully', async () => {
     const payload = {
       seatingCapacity: 10,
       busNumber: 'RAD 264 K',

@@ -20,4 +20,20 @@ const tripValidation = data => {
   return Joi.validate(data, schema, { abortEarly: false })
 }
 
+// Register User Validations
+const signupValidation = data => {
+  const schema = {
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
+    email: Joi.string()
+      .email()
+      .required(),
+    password: Joi.string()
+      .min(8)
+      .required(),
+  }
+  return Joi.validate(data, schema, { abortEarly: false })
+}
+
 module.exports.tripValidation = tripValidation
+module.exports.signupValidation = signupValidation

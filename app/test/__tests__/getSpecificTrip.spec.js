@@ -3,15 +3,13 @@ import app from '../../index'
 const request = require('supertest')
 
 describe('Test get a specific Trip', () => {
-  // eslint-disable-next-line prettier/prettier
-  test('It should respond with not found when passing wrong id', async() => {
+  test('It should respond with not found when passing wrong id', async () => {
     const response = await request(app).get('/api/v1/trips/1')
     expect(JSON.parse(response.text).error).toEqual('Trip not found')
     expect(response.status).toBe(404)
   })
 
-  // eslint-disable-next-line prettier/prettier
-  test('It should retrive back a trip with specific ID', async() => {
+  test('It should retrive back a trip with specific ID', async () => {
     const payload = {
       seatingCapacity: 24,
       busNumber: 'RAD 264 K',

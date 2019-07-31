@@ -67,4 +67,20 @@ describe('Test Authentication', () => {
     )
     expect(response.status).toBe(400)
   })
+
+  test('That password is required to register user', async () => {
+    const payload = {
+      firstName: 'Daniel',
+      lastName: 'Otieno',
+      email: 'dan@gmail.com',
+    }
+    const response = await request(app)
+      .post('/api/v1/auth/signup')
+      .set('Content-Type', 'application/json')
+      .send(payload)
+    expect(JSON.parse(response.text).error[0].message).toEqual(
+      '"password" is required',
+    )
+    expect(response.status).toBe(400)
+  })
 })

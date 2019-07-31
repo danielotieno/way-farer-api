@@ -23,8 +23,8 @@ const tripValidation = data => {
 // Register User Validations
 const signupValidation = data => {
   const schema = {
-    first_name: Joi.string().required(),
-    last_name: Joi.string().required(),
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
     email: Joi.string()
       .email()
       .required(),

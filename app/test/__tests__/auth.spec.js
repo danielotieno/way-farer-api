@@ -83,4 +83,38 @@ describe('Test Authentication', () => {
     )
     expect(response.status).toBe(400)
   })
+
+  test('That email is invalid', async () => {
+    const payload = {
+      firstName: 'Daniel',
+      lastName: 'Otieno',
+      email: 'dan@gmail',
+      password: '123456789',
+    }
+    const response = await request(app)
+      .post('/api/v1/auth/signup')
+      .set('Content-Type', 'application/json')
+      .send(payload)
+    expect(JSON.parse(response.text).error[0].message).toEqual(
+      '"email" must be a valid email',
+    )
+    expect(response.status).toBe(400)
+  })
+
+  test('That password is short', async () => {
+    const payload = {
+      firstName: 'Daniel',
+      lastName: 'Otieno',
+      email: 'dan@gmail.com',
+      password: '12345',
+    }
+    const response = await request(app)
+      .post('/api/v1/auth/signup')
+      .set('Content-Type', 'application/json')
+      .send(payload)
+    expect(JSON.parse(response.text).error[0].message).toEqual(
+      '"password" length must be at least 8 characters long',
+    )
+    expect(response.status).toBe(400)
+  })
 })

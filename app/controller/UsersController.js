@@ -1,4 +1,5 @@
 import UserModel from '../models/User'
+import EncryptData from '../../helpers/EncryptPassword'
 
 const { signupValidation } = require('../../helpers/validations')
 
@@ -14,11 +15,9 @@ class UserController {
       return res
         .status(400)
         .send({ status: 'error', error: 'User already exists' })
-
-    const user = await UserModel.createUser(req.body)
-    return res
-      .status(201)
-      .send({ status: 'User created successfully', data: user })
+    req.body.password = EncryptData.generateHash(req.body.password)
+    const message = await UserModel.createUser(req.body)
+    return res.status(201).send({ status: 'success', message })
   }
 }
 

@@ -22,7 +22,7 @@ class UserModel {
       date_created: now.format('DD-MM-YYYY'),
     }
     this.users.push(newUser)
-    return newUser
+    return 'User created successfully'
   }
 
   // Return an user with an email

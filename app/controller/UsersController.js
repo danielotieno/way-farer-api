@@ -1,8 +1,7 @@
 import UserModel from '../models/User'
 import EncryptData from '../../helpers/EncryptPassword'
 import createToken from '../../helpers/jwtToken'
-
-const { secretKey, jwtExpiration } = require('../../config/config')
+import config from '../../config/config'
 
 const {
   signupValidation,
@@ -34,8 +33,8 @@ class UserController {
 
     const token = createToken(
       { id: req.user.id, role: req.user.role },
-      secretKey,
-      { expiresIn: jwtExpiration },
+      config.secretKey,
+      { expiresIn: config.jwtExpiration },
     )
     return res
       .status(200)

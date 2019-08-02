@@ -21,7 +21,25 @@ describe('Test Authentication', () => {
     expect(response.status).toBe(201)
   })
 
-  test('That firstName is required when creating a user', async () => {
+  test('It should register admin successfully', async () => {
+    const payload = {
+      firstName: 'Daniel',
+      lastName: 'Otieno',
+      email: 'oti@gmail.com',
+      password: '123456789',
+    }
+    const response = await request(app)
+      .post('/api/v1/auth/signup/admin')
+      .set('Content-Type', 'application/json')
+      .send(payload)
+    expect(JSON.parse(response.text).status).toEqual('success')
+    expect(JSON.parse(response.text).message).toEqual(
+      'Admin created successfully',
+    )
+    expect(response.status).toBe(201)
+  })
+
+  test('Admin already exists when creating admin with the same email', async () => {
     const payload = {
       lastName: 'Otieno',
       email: 'oti@gmail.com',

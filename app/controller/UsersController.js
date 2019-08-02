@@ -1,4 +1,5 @@
 import UserModel from '../models/User'
+import AdminModel from '../models/Admin'
 import EncryptData from '../../helpers/EncryptPassword'
 import createToken from '../../helpers/jwtToken'
 import config from '../../config/config'
@@ -22,6 +23,22 @@ class UserController {
         .send({ status: 'error', error: 'User already exists' })
     req.body.password = EncryptData.generateHash(req.body.password)
     const message = await UserModel.createUser(req.body)
+    return res.status(201).send({ status: 'success', message })
+  }
+
+  static async createAdmin(req, res) {
+    // Validate fields before creating Admin
+    const { isError } = signupValidation(req.body)
+    if (isError)
+      return res.status(400).send({ status: 'error', error: isError.details })
+
+    const adminExist = await AdminModel.getAdminEmail(req.body.email)
+    if (adminExist)
+      return res
+        .status(400)
+        .send({ status: 'error', error: 'Admin already exists' })
+    req.body.password = EncryptData.generateHash(req.body.password)
+    const message = await AdminModel.createAdmin(req.body)
     return res.status(201).send({ status: 'success', message })
   }
 

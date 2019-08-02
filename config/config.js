@@ -9,6 +9,8 @@ const envVarsSchema = Joi.object({
     .allow(['development', 'production', 'test'])
     .required(),
   PORT: Joi.number().default(8080),
+  SECRET_KEY: Joi.string().required(),
+  JWT_EXPIRATION: Joi.string().required(),
 })
   .unknown()
   .required()
@@ -22,6 +24,8 @@ if (error) {
 const config = {
   env: envVars.NODE_ENV || 'development',
   port: envVars.PORT,
+  secretKey: envVars.SECRET_KEY,
+  jwtExpiration: envVars.JWT_EXPIRATION,
 }
 
 export default config

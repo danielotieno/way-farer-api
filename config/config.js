@@ -10,7 +10,7 @@ const envVarsSchema = Joi.object({
     .required(),
   PORT: Joi.number().default(8080),
   SECRET_KEY: Joi.string().required(),
-  JWT_EXPIRATION: Joi.number().required(),
+  JWT_EXPIRATION: Joi.string().required(),
 })
   .unknown()
   .required()

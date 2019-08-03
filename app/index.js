@@ -1,7 +1,6 @@
 import express from 'express'
 import morgan from 'morgan'
 import passport from 'passport'
-
 import routes from './routes/api/v1'
 
 const app = express()

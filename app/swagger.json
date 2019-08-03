@@ -1,6 +1,5 @@
 {
     "swagger": "2.0",
-    "openapi": "3.0.0",
     "info": {
         "description": "WayFarer is a public bus transportation booking service.An API that will provide a fucntionality for WayFarer Admins to be able to create and manage trips.\n[GitHub Repo](https://github.com/danielotieno/way-farer-api)\n",
         "version": "1.0.0",

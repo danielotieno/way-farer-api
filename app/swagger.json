@@ -1,195 +1,312 @@
 {
+    "swagger": "2.0",
     "openapi": "3.0.0",
     "info": {
+        "description": "WayFarer is a public bus transportation booking service.An API that will provide a fucntionality for WayFarer Admins to be able to create and manage trips.\n[GitHub Repo](https://github.com/danielotieno/way-farer-api)\n",
         "version": "1.0.0",
-        "title": "WayFarer API",
-        "description": "WayFarer is a public bus transportation booking service. An API that will provide a fucntionality for WayFarer Admins to be able to create and manage trips.",
-        "license": {
-            "name": "GitHub Repo",
-            "url": "https://github.com/danielotieno/way-farer-api"
-        }
+        "title": "WayFarer API"
     },
-    "servers": [{
-        "url": "/",
-        "description": "From Local Development, or Heroku"
-    }],
+    "basePath": "/danielotienoke/WayFarerAPI/1.0.0",
     "tags": [{
-        "name": "Cats",
-        "description": "API for cats in the system"
-    }],
-    "consumes": ["application/json"],
-    "produces": ["application/json"],
+            "name": "Trip",
+            "description": "Everything about your Trips"
+        },
+        {
+            "name": "Booking",
+            "description": "Everything about your Booking a trip"
+        },
+        {
+            "name": "User",
+            "description": "Everything about your User Authentication"
+        }
+    ],
+    "schemes": ["https", "http"],
     "paths": {
-        "/cats": {
-            "get": {
-                "tags": ["Cats"],
-                "summary": "Get all cats in system",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/Cats"
-                        }
-                    }
-                }
-            },
+        "/api/v1/trips": {
             "post": {
-                "tags": ["Cats"],
-                "summary": "Create a new cat in system",
-                "requestBody": {
-                    "description": "Cat Object",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/definitions/Cat"
-                            }
-                        }
-                    }
-                },
+                "tags": ["Trip"],
+                "summary": "Add a new trip.",
+                "operationId": "addTrip",
+                "consumes": ["application/json"],
                 "produces": ["application/json"],
+                "parameters": [{
+                    "in": "body",
+                    "name": "body",
+                    "description": "Create a new trip object",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Trip"
+                    }
+                }],
                 "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/id"
-                        }
-                    },
-                    "400": {
-                        "description": "Failed. Bad post data."
+                    "405": {
+                        "description": "Invalid input"
                     }
                 }
             }
         },
-        "/cats/{id}": {
-            "parameters": [{
-                "name": "id",
-                "in": "path",
-                "required": true,
-                "description": "ID of the cat that we want to match",
-                "type": "string"
-            }],
-            "get": {
-                "tags": ["Cats"],
-                "summary": "Get cat with given ID",
+        "/api/v1/trips/{tripId}/cancel": {
+            "patch": {
+                "tags": ["Trip"],
+                "summary": "Update an existing trip",
+                "operationId": "patchTrip",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
                 "parameters": [{
+                    "name": "tripId",
                     "in": "path",
-                    "name": "id",
+                    "description": "ID of trip to return",
                     "required": true,
-                    "description": "Cat with id",
-                    "schema": {
-                        "$ref": "#/definitions/id"
-                    }
+                    "type": "string",
+                    "format": "uuid"
                 }],
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "successful operation",
                         "schema": {
-                            "$ref": "#/definitions/Cat"
-                        }
-                    },
-                    "404": {
-                        "description": "Failed. Cat not found."
-                    }
-                }
-            },
-            "put": {
-                "summary": "Update cat with given ID",
-                "tags": ["Cats"],
-                "requestBody": {
-                    "description": "Cat Object",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/definitions/Cat"
-                            }
-                        }
-                    }
-                },
-                "parameters": [{
-                    "in": "path",
-                    "name": "id",
-                    "required": true,
-                    "description": "Cat with new values of properties",
-                    "schema": {
-                        "$ref": "#/definitions/id"
-                    }
-                }],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/Cat"
+                            "$ref": "#/definitions/Trip"
                         }
                     },
                     "400": {
-                        "description": "Failed. Bad post data."
+                        "description": "Invalid ID supplied"
                     },
                     "404": {
-                        "description": "Failed. Cat not found."
-                    }
-                }
-            },
-            "delete": {
-                "summary": "Delete cat with given ID",
-                "tags": ["Cats"],
-                "parameters": [{
-                    "in": "path",
-                    "name": "id",
-                    "required": true,
-                    "description": "Delete Cat with id",
-                    "schema": {
-                        "$ref": "#/definitions/id"
-                    }
-                }],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/id"
-                        }
-                    },
-                    "404": {
-                        "description": "Failed. Cat not found."
+                        "description": "Trip not found"
                     }
                 }
             }
+        },
+        "/api/v1/trips/{tripId}": {
+            "get": {
+                "tags": ["Trip"],
+                "summary": "Get a specific trip by ID",
+                "description": "Returns a single trip",
+                "operationId": "getTripById",
+                "produces": ["application/json"],
+                "parameters": [{
+                    "name": "tripId",
+                    "in": "path",
+                    "description": "ID of trip to return",
+                    "required": true,
+                    "type": "string",
+                    "format": "uuid"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Trip"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Trip not found"
+                    }
+                }
+            }
+        },
+        "/api/v1/trips/": {
+            "get": {
+                "tags": ["Trip"],
+                "summary": "Returns all trips",
+                "operationId": "getAllTrips",
+                "produces": ["application/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/signup/admin": {
+            "post": {
+                "tags": ["User"],
+                "summary": "Create Admin",
+                "description": "This can only be done by the admin.",
+                "operationId": "createAdmin",
+                "produces": ["application/json"],
+                "parameters": [{
+                    "in": "body",
+                    "name": "body",
+                    "description": "Created Admin object",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/User"
+                    }
+                }],
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/signup": {
+            "post": {
+                "tags": ["User"],
+                "summary": "Create a user",
+                "description": "This can only be done by the logged in user.",
+                "operationId": "createUser",
+                "produces": ["application/json"],
+                "parameters": [{
+                    "in": "body",
+                    "name": "body",
+                    "description": "Created user object",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/User"
+                    }
+                }],
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/login": {
+            "post": {
+                "tags": ["User"],
+                "summary": "Logs user into the system",
+                "operationId": "loginUser",
+                "produces": ["application/json"],
+                "parameters": [{
+                        "name": "email",
+                        "in": "query",
+                        "description": "The user email for login",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "The password for login in clear text",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "headers": {
+                            "X-Rate-Limit": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "calls per hour allowed by the user"
+                            },
+                            "X-Expires-After": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "date in UTC when token expires"
+                            }
+                        },
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid username/password supplied"
+                    }
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "petstore_auth": {
+            "type": "oauth2",
+            "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+            "flow": "implicit"
+        },
+        "api_key": {
+            "type": "apiKey",
+            "name": "api_key",
+            "in": "header"
         }
     },
     "definitions": {
-        "id": {
+        "User": {
+            "type": "object",
+            "required": ["dateCreated", "email", "firstName", "lastName", "password"],
             "properties": {
-                "uuid": {
-                    "type": "string"
+                "id": {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "firstName": {
+                    "type": "string",
+                    "example": "Daniel"
+                },
+                "lastName": {
+                    "type": "string",
+                    "example": "Otieno"
+                },
+                "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "daniel@gmail.com"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "123456789"
+                },
+                "dateCreated": {
+                    "type": "string",
+                    "format": "date"
                 }
+            },
+            "xml": {
+                "name": "User"
             }
         },
-        "Cat": {
+        "Trip": {
             "type": "object",
+            "required": [
+                "busNumber",
+                "destination",
+                "fare",
+                "origin",
+                "seatingCapacity",
+                "tripDate"
+            ],
             "properties": {
-                "genus": {
-                    "type": "string"
+                "id": {
+                    "type": "string",
+                    "format": "uuid"
                 },
-                "name": {
-                    "type": "string"
+                "seatingCapacity": {
+                    "type": "integer",
+                    "example": 24
                 },
-                "isHungry": {
-                    "type": "boolean"
+                "busNumber": {
+                    "type": "string",
+                    "example": "RAD 276 K"
                 },
-                "lastFedDate": {
-                    "type": "string"
-                }
-            }
-        },
-        "Cats": {
-            "type": "object",
-            "properties": {
-                "cats": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "$ref": "#/definitions/Cat"
-                    }
+                "origin": {
+                    "type": "string",
+                    "example": "Mombasa"
+                },
+                "destination": {
+                    "type": "string",
+                    "example": "Kigali"
+                },
+                "fare": {
+                    "type": "number",
+                    "example": 4560.0
+                },
+                "status": {
+                    "type": "string",
+                    "description": "Status of the trip",
+                    "enum": ["available", "cancelled"]
+                },
+                "tripDate": {
+                    "type": "string",
+                    "format": "date"
                 }
             }
         }

@@ -4,7 +4,8 @@
     "description": "WayFarer is a public bus transportation booking service.",
     "main": "index.js",
     "scripts": {
-        "start": "DEBUG=log nodemon --exec babel-node index.js",
+        "start": "babel-node index.js",
+        "start:dev": "DEBUG=log nodemon --exec babel-node index.js",
         "test": "NODE_ENV=test jest --coverage --no-cache  --detectOpenHandles --runInBand --forceExit && cat ./tests/coverage/lcov.info | coveralls",
         "codecov": "codecov"
     },

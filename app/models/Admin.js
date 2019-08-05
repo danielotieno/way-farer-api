@@ -13,7 +13,7 @@ class AdminModel {
   // Create a new Normal User
   createAdmin(data) {
     const newAdmin = {
-      id: uuid.v4(),
+      adminId: uuid.v4(),
       firstName: data.firstName,
       lastName: data.lastName,
       role: data.role || 'admin',

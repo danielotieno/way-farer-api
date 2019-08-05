@@ -13,7 +13,7 @@ class UserModel {
   // Create a new Normal User
   createUser(data) {
     const newUser = {
-      id: uuid.v4(),
+      userId: uuid.v4(),
       firstName: data.firstName,
       lastName: data.lastName,
       role: data.role || 'user',

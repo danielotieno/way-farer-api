@@ -13,7 +13,7 @@ class Trip {
   // Create a new trip object
   createTrip(data) {
     const newTrip = {
-      id: uuid.v4(),
+      tripId: uuid.v4(),
       seatingCapacity: data.seatingCapacity,
       busNumber: data.busNumber,
       origin: data.origin,
@@ -33,7 +33,7 @@ class Trip {
 
   // Return a Single trip
   singleTrip(id) {
-    return this.trips.find(trip => trip.id === id)
+    return this.trips.find(trip => trip.tripId === id)
   }
 
   // PATCH a specific trip

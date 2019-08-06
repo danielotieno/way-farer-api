@@ -2,8 +2,6 @@
 import moment from 'moment'
 import uuid from 'uuid'
 
-const now = moment()
-
 class Trip {
   // class constructor
   constructor() {
@@ -20,7 +18,7 @@ class Trip {
       destination: data.destination,
       fare: data.fare,
       status: data.status || 'active',
-      tripDate: now.format('DD-MM-YYYY'),
+      tripDate: moment.now.format('DD-MM-YYYY'),
     }
     this.trips.push(newTrip)
     return newTrip

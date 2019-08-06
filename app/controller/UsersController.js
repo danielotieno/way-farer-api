@@ -22,8 +22,10 @@ class UserController {
         .status(400)
         .send({ status: 'error', error: 'User already exists' })
     req.body.password = EncryptData.generateHash(req.body.password)
-    const message = await UserModel.createUser(req.body)
-    return res.status(201).send({ status: 'success', message })
+    const userId = await UserModel.createUser(req.body)
+    return res
+      .status(201)
+      .send({ status: 'success', message: 'User created successfully', userId })
   }
 
   static async createAdmin(req, res) {

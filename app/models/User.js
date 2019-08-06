@@ -1,8 +1,6 @@
 import moment from 'moment'
 import uuid from 'uuid'
 
-const now = moment()
-
 class UserModel {
   // class constructor
 
@@ -19,10 +17,10 @@ class UserModel {
       role: data.role || 'user',
       email: data.email,
       password: data.password,
-      date_created: now.format('DD-MM-YYYY'),
+      date_created: moment.now.format('DD-MM-YYYY'),
     }
     this.users.push(newUser)
-    return 'User created successfully'
+    return newUser.userId
   }
 
   // Return an user with an email

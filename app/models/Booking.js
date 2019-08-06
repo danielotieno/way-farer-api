@@ -1,4 +1,5 @@
 // Booking Model
+import moment from 'moment'
 import uuid from 'uuid'
 
 class Booking {
@@ -11,12 +12,10 @@ class Booking {
   createBooking(data) {
     const newBooking = {
       bookingId: uuid.v4(),
-      busNumber: data.busNumber,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      numberOfSeat: data.numberOfSeat,
-      tripDate: data.tripDate,
+      userId: data.userId,
+      tripId: data.tripId,
+      numberOfSeats: data.numberOfSeats,
+      createdOn: moment.now.format('DD-MM-YYYY'),
     }
     this.bookings.push(newBooking)
     return newBooking

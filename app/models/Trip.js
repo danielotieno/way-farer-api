@@ -18,7 +18,7 @@ class Trip {
       destination: data.destination,
       fare: data.fare,
       status: data.status || 'active',
-      tripDate: moment.now.format('DD-MM-YYYY'),
+      tripDate: moment().format('DD-MM-YYYY'),
     }
     this.trips.push(newTrip)
     return newTrip

@@ -1,8 +1,6 @@
 import moment from 'moment'
 import uuid from 'uuid'
 
-const now = moment()
-
 class AdminModel {
   // class constructor
 
@@ -19,7 +17,7 @@ class AdminModel {
       role: data.role || 'admin',
       email: data.email,
       password: data.password,
-      date_created: now.format('DD-MM-YYYY'),
+      date_created: moment().format('DD-MM-YYYY'),
     }
     this.admins.push(newAdmin)
     return 'Admin created successfully'

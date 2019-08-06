@@ -15,7 +15,7 @@ class Booking {
       userId: data.userId,
       tripId: data.tripId,
       numberOfSeats: data.numberOfSeats,
-      createdOn: moment.now.format('DD-MM-YYYY'),
+      createdOn: moment().format('DD-MM-YYYY'),
     }
     this.bookings.push(newBooking)
     return newBooking

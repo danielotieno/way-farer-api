@@ -29,10 +29,5 @@ class AdminModel {
   getAdminEmail(email) {
     return this.admins.find(admin => admin.email === email)
   }
-
-  // Return an admin with the role
-  getAdminRole(role) {
-    return this.admins.find(admin => admin.role === role)
-  }
 }
 export default new AdminModel()

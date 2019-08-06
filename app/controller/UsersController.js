@@ -16,7 +16,7 @@ class UserController {
     if (error)
       return res.status(400).send({ status: 'error', error: error.details })
 
-    const userExist = await UserModel.getUserEmail(req.body.email)
+    const userExist = await UserModel.getUserByEmail(req.body.email)
     if (userExist)
       return res
         .status(400)

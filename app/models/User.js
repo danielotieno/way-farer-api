@@ -23,14 +23,14 @@ class UserModel {
     return newUser.userId
   }
 
-  // Return an user with an email
-  getUserEmail(email) {
-    return this.users.find(user => user.email === email)
+  // Return an user with userId
+  getUserById(userId) {
+    return this.users.find(user => user.userId === userId)
   }
 
-  // Return an user with the role
-  getUserRole(role) {
-    return this.users.find(user => user.role === role)
+  // Return an user with an email
+  getUserByEmail(email) {
+    return this.users.find(user => user.email === email)
   }
 }
 export default new UserModel()

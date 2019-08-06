@@ -30,13 +30,13 @@ class Trip {
   }
 
   // Return a Single trip
-  singleTrip(id) {
-    return this.trips.find(trip => trip.tripId === id)
+  singleTrip(tripId) {
+    return this.trips.find(trip => trip.tripId === tripId)
   }
 
   // PATCH a specific trip
-  cancelTrip(id, data) {
-    const trip = this.singleTrip(id)
+  cancelTrip(tripId, data) {
+    const trip = this.singleTrip(tripId)
     const index = this.trips.indexOf(trip)
     this.trips[index].status = data.status
     return this.trips[index].status

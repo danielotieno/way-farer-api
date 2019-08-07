@@ -3,12 +3,10 @@ import moment from 'moment'
 import uuid from 'uuid'
 
 class Trip {
-  // class constructor
   constructor() {
     this.trips = []
   }
 
-  // Create a new trip object
   createTrip(data) {
     const newTrip = {
       tripId: uuid.v4(),
@@ -24,25 +22,21 @@ class Trip {
     return newTrip
   }
 
-  // Returns all trips
-  allTrips() {
+  getAllTrips() {
     return this.trips
   }
 
-  // Return a Single trip
-  singleTrip(tripId) {
+  getSpecificTrip(tripId) {
     return this.trips.find(trip => trip.tripId === tripId)
   }
 
-  // PATCH a specific trip
   cancelTrip(tripId, data) {
-    const trip = this.singleTrip(tripId)
+    const trip = this.getSpecificTrip(tripId)
     const index = this.trips.indexOf(trip)
     this.trips[index].status = data.status
     return this.trips[index].status
   }
 
-  // Return a Bus number
   getBusNumber(busNumber) {
     return this.trips.find(trip => trip.busNumber === busNumber)
   }

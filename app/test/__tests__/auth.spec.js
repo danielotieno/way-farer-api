@@ -14,7 +14,7 @@ describe('Test Authentication', () => {
       .post('/api/v1/auth/signup')
       .set('Content-Type', 'application/json')
       .send(payload)
-    expect(JSON.parse(response.text).status).toEqual('success')
+    expect(JSON.parse(response.text).status).toEqual(201)
     expect(JSON.parse(response.text).message).toEqual(
       'User created successfully',
     )
@@ -32,7 +32,7 @@ describe('Test Authentication', () => {
       .post('/api/v1/auth/signup/admin')
       .set('Content-Type', 'application/json')
       .send(payload)
-    expect(JSON.parse(response.text).status).toEqual('success')
+    expect(JSON.parse(response.text).status).toEqual(201)
     expect(JSON.parse(response.text).message).toEqual(
       'Admin created successfully',
     )

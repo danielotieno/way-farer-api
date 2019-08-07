@@ -27,7 +27,11 @@ describe('Test get a specific Trip', () => {
     expect(response.body.data).toHaveProperty('origin', 'Mombasa')
     expect(response.body.data).toHaveProperty('destination', 'Kigali')
     expect(response.body.data).toHaveProperty('fare', 4600.0)
-    expect(JSON.parse(response.text).status).toEqual('success')
+    expect(JSON.parse(response.text).status).toEqual(200)
+    expect(JSON.parse(response.text).message).toEqual(
+      'Successfully retrieved a Trip',
+    )
+
     expect(response.status).toBe(200)
   })
 })

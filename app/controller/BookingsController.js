@@ -8,6 +8,10 @@ class BookingsController {
   static async getBookings(req, res) {
     BookingService.getAll(req, res)
   }
+
+  static async deleteSpecificBooking(req, res) {
+    BookingService.deleteBooking(req, res)
+  }
 }
 
 export default BookingsController

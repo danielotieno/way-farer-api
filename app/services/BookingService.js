@@ -6,7 +6,7 @@ import formatBooking from '../../lib/helpers/formatBookings'
 class BookingService {
   static async postBooking(req, res) {
     const user = await UserModel.getUserById(req.body.userId)
-    const trip = await TripModel.singleTrip(req.body.tripId)
+    const trip = await TripModel.getSpecificTrip(req.body.tripId)
     const booking = await Booking.createBooking(req.body)
 
     const bookedTrip = {
@@ -33,9 +33,18 @@ class BookingService {
     )
     return res.status(200).send({
       status: 200,
-      message: 'Successfully',
+      message: 'Successfully retrieve all bookings',
       data: formattedBookings,
     })
+  }
+
+  static async deleteBooking(req, res) {
+    const booking = Booking.getSpecificBooking(req.params.id)
+    if (!booking) {
+      return res.status(404).send({ status: 404, error: 'Booking not found' })
+    }
+    const message = Booking.deleteBooking(req.params.id)
+    return res.status(204).send({ status: 204, message })
   }
 }
 export default BookingService

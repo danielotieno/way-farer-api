@@ -1,6 +1,6 @@
 import passport from 'passport'
 import UserModel from '../app/models/User'
-import EncryptData from '../helpers/EncryptPassword'
+import EncryptData from '../lib/helpers/EncryptPassword'
 import config from './config'
 
 const LocalStrategy = require('passport-local').Strategy

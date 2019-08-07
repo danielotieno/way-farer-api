@@ -2,8 +2,6 @@
 import moment from 'moment'
 import uuid from 'uuid'
 
-const now = moment()
-
 class Trip {
   // class constructor
   constructor() {
@@ -13,14 +11,14 @@ class Trip {
   // Create a new trip object
   createTrip(data) {
     const newTrip = {
-      id: uuid.v4(),
+      tripId: uuid.v4(),
       seatingCapacity: data.seatingCapacity,
       busNumber: data.busNumber,
       origin: data.origin,
       destination: data.destination,
       fare: data.fare,
       status: data.status || 'active',
-      tripDate: now.format('DD-MM-YYYY'),
+      tripDate: moment().format('DD-MM-YYYY'),
     }
     this.trips.push(newTrip)
     return newTrip
@@ -32,13 +30,13 @@ class Trip {
   }
 
   // Return a Single trip
-  singleTrip(id) {
-    return this.trips.find(trip => trip.id === id)
+  singleTrip(tripId) {
+    return this.trips.find(trip => trip.tripId === tripId)
   }
 
   // PATCH a specific trip
-  cancelTrip(id, data) {
-    const trip = this.singleTrip(id)
+  cancelTrip(tripId, data) {
+    const trip = this.singleTrip(tripId)
     const index = this.trips.indexOf(trip)
     this.trips[index].status = data.status
     return this.trips[index].status

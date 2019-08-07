@@ -21,7 +21,7 @@ describe('Test get a specific Trip', () => {
       .post('/api/v1/trips')
       .set('Content-Type', 'application/json')
       .send(payload)
-    const response = await request(app).get(`/api/v1/trips/${body.data.id}`)
+    const response = await request(app).get(`/api/v1/trips/${body.data.tripId}`)
     expect(response.body.data).toHaveProperty('seatingCapacity', 24)
     expect(response.body.data).toHaveProperty('busNumber', 'RAD 264 K')
     expect(response.body.data).toHaveProperty('origin', 'Mombasa')

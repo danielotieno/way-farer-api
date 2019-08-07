@@ -1,8 +1,6 @@
 import moment from 'moment'
 import uuid from 'uuid'
 
-const now = moment()
-
 class UserModel {
   // class constructor
 
@@ -13,26 +11,26 @@ class UserModel {
   // Create a new Normal User
   createUser(data) {
     const newUser = {
-      id: uuid.v4(),
+      userId: uuid.v4(),
       firstName: data.firstName,
       lastName: data.lastName,
       role: data.role || 'user',
       email: data.email,
       password: data.password,
-      date_created: now.format('DD-MM-YYYY'),
+      date_created: moment().format('DD-MM-YYYY'),
     }
     this.users.push(newUser)
-    return 'User created successfully'
+    return newUser.userId
+  }
+
+  // Return an user with userId
+  getUserById(userId) {
+    return this.users.find(user => user.userId === userId)
   }
 
   // Return an user with an email
-  getUserEmail(email) {
+  getUserByEmail(email) {
     return this.users.find(user => user.email === email)
-  }
-
-  // Return an user with the role
-  getUserRole(role) {
-    return this.users.find(user => user.role === role)
   }
 }
 export default new UserModel()

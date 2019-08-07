@@ -16,14 +16,16 @@ class UserController {
     if (error)
       return res.status(400).send({ status: 'error', error: error.details })
 
-    const userExist = await UserModel.getUserEmail(req.body.email)
+    const userExist = await UserModel.getUserByEmail(req.body.email)
     if (userExist)
       return res
         .status(400)
         .send({ status: 'error', error: 'User already exists' })
     req.body.password = EncryptData.generateHash(req.body.password)
-    const message = await UserModel.createUser(req.body)
-    return res.status(201).send({ status: 'success', message })
+    const userId = await UserModel.createUser(req.body)
+    return res
+      .status(201)
+      .send({ status: 'success', message: 'User created successfully', userId })
   }
 
   static async createAdmin(req, res) {

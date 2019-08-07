@@ -47,7 +47,7 @@ The following endpoints should be available to use once the API is complete:
 |                                     |                       |
 | POST /api/v1/bookings               | Book a seat on a trip |
 | GET /api/v1/bookings                | View all bookings.    |
-| GET /api/v1//bookings/<:booking-id> | Delete a booking.     |
+| DEL /api/v1//bookings/<:booking-id> | Delete a booking.     |
 |                                     |                       |
 
 ### Technologies used to build the application

@@ -13,7 +13,7 @@ passport.use(
       passwordField: 'password',
     },
     async (email, password, done) => {
-      const user = await UserModel.getUserEmail(email)
+      const user = await UserModel.getUserByEmail(email)
       if (!user) return done(null, false, { message: 'User does not exist' })
       const passwordMatch = await EncryptData.comparePassword(
         password,

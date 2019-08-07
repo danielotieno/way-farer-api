@@ -11,7 +11,7 @@ const routes = app => {
   app.use(apiPrefix, auth)
   app.use(apiPrefix, bookings)
 
-  app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
   app.use('*', (req, res) =>
     res.status(404).json({ message: 'Kindly, check if your URL is correct' }),

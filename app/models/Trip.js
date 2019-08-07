@@ -31,7 +31,7 @@ class Trip {
   }
 
   cancelTrip(tripId, data) {
-    const trip = this.singleTrip(tripId)
+    const trip = this.getSpecificTrip(tripId)
     const index = this.trips.indexOf(trip)
     this.trips[index].status = data.status
     return this.trips[index].status

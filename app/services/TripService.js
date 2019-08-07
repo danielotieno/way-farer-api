@@ -34,11 +34,11 @@ class TripService {
   }
 
   static async updateTripStatus(req, res) {
-    const trip = await TripModel.getSpecificTrip(req.params.tripId)
+    const trip = await TripModel.getSpecificTrip(req.params.id)
     if (!trip) {
       return res.status(404).send({ status: 404, error: 'Trip not found' })
     }
-    const tripStatus = await TripModel.cancelTrip(req.params.tripId, req.body)
+    const tripStatus = await TripModel.cancelTrip(req.params.id, req.body)
     if (tripStatus === 'active') {
       return res
         .status(200)

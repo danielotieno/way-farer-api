@@ -1,6 +1,7 @@
 import Booking from '../models/Booking'
 import UserModel from '../models/User'
 import TripModel from '../models/Trip'
+import formatBooking from '../../lib/helpers/formatBookings'
 
 class BookingService {
   static async postBooking(req, res) {
@@ -22,6 +23,18 @@ class BookingService {
       status: 201,
       message: 'Booking created successfully',
       data: bookedTrip,
+    })
+  }
+
+  static async getAll(req, res) {
+    const bookings = await Booking.getAllBookings()
+    const formattedBookings = await Promise.all(
+      bookings.map(booking => formatBooking(booking)),
+    )
+    return res.status(200).send({
+      status: 200,
+      message: 'Successfully',
+      data: formattedBookings,
     })
   }
 }

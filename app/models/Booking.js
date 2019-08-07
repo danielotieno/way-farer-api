@@ -20,5 +20,9 @@ class Booking {
     this.bookings.push(newBooking)
     return newBooking
   }
+
+  getAllBookings() {
+    return this.bookings
+  }
 }
 export default new Booking()

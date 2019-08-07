@@ -14,13 +14,20 @@ passport.use(
     },
     async (email, password, done) => {
       const user = await UserModel.getUserByEmail(email)
-      if (!user) return done(null, false, { message: 'User does not exist' })
+      if (!user)
+        return done(null, false, {
+          status: 404,
+          message: 'User does not exist',
+        })
       const passwordMatch = await EncryptData.comparePassword(
         password,
         user.password,
       )
       if (passwordMatch) return done(null, user)
-      return done(null, false, { message: 'Incorrect email or Password' })
+      return done(null, false, {
+        status: 400,
+        message: 'Incorrect email or Password',
+      })
     },
   ),
 )

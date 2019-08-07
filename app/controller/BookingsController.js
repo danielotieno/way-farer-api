@@ -25,9 +25,11 @@ class BookingsController {
       numberOfSeats: booking.numberOfSeats,
       createdOn: booking.createdOn,
     }
-    return res
-      .status(201)
-      .send({ status: 'Booking created successfully', data: bookedTrip })
+    return res.status(201).send({
+      status: 201,
+      message: 'Booking created successfully',
+      data: bookedTrip,
+    })
   }
 }
 

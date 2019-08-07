@@ -1,21 +1,11 @@
 import UserModel from '../models/User'
 import AdminModel from '../models/Admin'
-import EncryptData from '../../helpers/EncryptPassword'
-import createToken from '../../helpers/jwtToken'
+import EncryptData from '../../lib/helpers/EncryptPassword'
+import createToken from '../../lib/helpers/jwtToken'
 import config from '../../config/config'
-
-const {
-  signupValidation,
-  loginValidation,
-} = require('../../helpers/validations')
 
 class UserController {
   static async createUser(req, res) {
-    // Validate fields before creating User
-    const { error } = signupValidation(req.body)
-    if (error)
-      return res.status(400).send({ status: 'error', error: error.details })
-
     const userExist = await UserModel.getUserByEmail(req.body.email)
     if (userExist)
       return res
@@ -29,11 +19,6 @@ class UserController {
   }
 
   static async createAdmin(req, res) {
-    // Validate fields before creating Admin
-    const { isError } = signupValidation(req.body)
-    if (isError)
-      return res.status(400).send({ status: 'error', error: isError.details })
-
     const adminExist = await AdminModel.getAdminEmail(req.body.email)
     if (adminExist)
       return res
@@ -45,11 +30,6 @@ class UserController {
   }
 
   static async loginUser(req, res) {
-    // Validate fields before creating User
-    const { error } = loginValidation(req.body)
-    if (error)
-      return res.status(400).send({ status: 'error', error: error.details })
-
     const token = createToken(
       { id: req.user.id, role: req.user.role },
       config.secretKey,

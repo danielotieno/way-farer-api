@@ -1,8 +1,12 @@
+import request from 'supertest'
 import app from '../../index'
-
-const request = require('supertest')
+import getToken from '../testHelper'
 
 describe('Test creating a trip', () => {
+  let token
+  beforeEach(async () => {
+    token = await getToken()
+  })
   test('Create a trip without seating capacity', async () => {
     const payload = {
       busNumber: 'RAD 254 J',
@@ -12,6 +16,7 @@ describe('Test creating a trip', () => {
     }
     const response = await request(app)
       .post('/api/v1/trips')
+      .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
     expect(JSON.parse(response.text).error[0].message).toEqual(
@@ -29,6 +34,7 @@ describe('Test creating a trip', () => {
     }
     const response = await request(app)
       .post('/api/v1/trips')
+      .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
     expect(JSON.parse(response.text).error[0].message).toEqual(
@@ -44,8 +50,10 @@ describe('Test creating a trip', () => {
       destination: 'Kigali',
       fare: 4500.0,
     }
+
     const response = await request(app)
       .post('/api/v1/trips')
+      .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
     expect(JSON.parse(response.text).error[0].message).toEqual(
@@ -63,6 +71,7 @@ describe('Test creating a trip', () => {
     }
     const response = await request(app)
       .post('/api/v1/trips')
+      .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
     expect(JSON.parse(response.text).error[0].message).toEqual(
@@ -80,6 +89,7 @@ describe('Test creating a trip', () => {
     }
     const response = await request(app)
       .post('/api/v1/trips')
+      .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
     expect(JSON.parse(response.text).error[0].message).toEqual(
@@ -98,6 +108,7 @@ describe('Test creating a trip', () => {
     }
     const response = await request(app)
       .post('/api/v1/trips')
+      .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
     expect(JSON.parse(response.text).status).toEqual(201)

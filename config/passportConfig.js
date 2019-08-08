@@ -15,7 +15,7 @@ passport.use(
     async (email, password, done) => {
       const user = await UserModel.getUserByEmail(email)
       if (!user)
-        return done(null, false, {
+        return done(null, {
           status: 404,
           message: 'User does not exist',
         })
@@ -24,7 +24,7 @@ passport.use(
         user.password,
       )
       if (passwordMatch) return done(null, user)
-      return done(null, false, {
+      return done(null, {
         status: 400,
         message: 'Incorrect email or Password',
       })

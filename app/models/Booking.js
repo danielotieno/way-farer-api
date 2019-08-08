@@ -29,6 +29,10 @@ class Booking {
     return this.bookings.find(booking => booking.bookingId === bookingId)
   }
 
+  getBookingsByUserId(userId) {
+    return this.bookings.filter(booking => booking.userId === userId)
+  }
+
   deleteBooking(bookingId) {
     const booking = this.getSpecificBooking(bookingId)
     const index = this.bookings.indexOf(booking)

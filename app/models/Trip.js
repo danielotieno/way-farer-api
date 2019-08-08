@@ -26,12 +26,12 @@ class Trip {
     return this.trips
   }
 
-  getSpecificTrip(tripId) {
+  getTripById(tripId) {
     return this.trips.find(trip => trip.tripId === tripId)
   }
 
   cancelTrip(tripId, data) {
-    const trip = this.getSpecificTrip(tripId)
+    const trip = this.getTripById(tripId)
     const index = this.trips.indexOf(trip)
     this.trips[index].status = data.status
     return this.trips[index].status

@@ -21,8 +21,8 @@ class TripService {
     })
   }
 
-  static async getSpecificTrip(req, res) {
-    const trip = await TripModel.getSpecificTrip(req.params.id)
+  static async getTripById(req, res) {
+    const trip = await TripModel.getTripById(req.params.id)
     if (!trip) {
       return res.status(404).send({ status: 404, error: 'Trip not found' })
     }
@@ -34,7 +34,7 @@ class TripService {
   }
 
   static async updateTripStatus(req, res) {
-    const trip = await TripModel.getSpecificTrip(req.params.id)
+    const trip = await TripModel.getTripById(req.params.id)
     if (!trip) {
       return res.status(404).send({ status: 404, error: 'Trip not found' })
     }

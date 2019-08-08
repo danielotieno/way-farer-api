@@ -10,7 +10,7 @@ class TripsController {
   }
 
   static async getSingleTrip(req, res) {
-    TripService.getSpecificTrip(req, res)
+    TripService.getTripById(req, res)
   }
 
   static async cancelTrip(req, res) {

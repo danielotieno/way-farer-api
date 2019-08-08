@@ -5,8 +5,15 @@ import formatBooking from '../../lib/helpers/formatBookings'
 
 class BookingService {
   static async postBooking(req, res) {
-    const user = await UserModel.getUserById(req.body.userId)
-    const trip = await TripModel.getSpecificTrip(req.body.tripId)
+    const user = await UserModel.getUserById(req.user.id)
+    const trip = await TripModel.getTripById(req.body.tripId)
+    if (!user && !trip) {
+      return res.status(400).send({
+        status: 400,
+        message: 'User or Trip must exist ',
+      })
+    }
+    req.body.userId = user.userId
     const booking = await Booking.createBooking(req.body)
 
     const bookedTrip = {
@@ -27,7 +34,19 @@ class BookingService {
   }
 
   static async getAll(req, res) {
-    const bookings = await Booking.getAllBookings()
+    let bookings
+    if (req.user.role === 'admin') {
+      bookings = await Booking.getAllBookings()
+    } else {
+      bookings = await Booking.getBookingsByUserId(req.user.id)
+    }
+
+    if (!bookings.length) {
+      return res.status(200).send({
+        status: 200,
+        message: 'There are no bookings',
+      })
+    }
     const formattedBookings = await Promise.all(
       bookings.map(booking => formatBooking(booking)),
     )

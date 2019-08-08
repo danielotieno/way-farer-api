@@ -14,20 +14,13 @@ passport.use(
     },
     async (email, password, done) => {
       const user = await UserModel.getUserByEmail(email)
-      if (!user)
-        return done(null, {
-          status: 404,
-          message: 'User does not exist',
-        })
+      if (!user) return done('Invalid email or password')
       const passwordMatch = await EncryptData.comparePassword(
         password,
         user.password,
       )
       if (passwordMatch) return done(null, user)
-      return done(null, {
-        status: 400,
-        message: 'Incorrect email or Password',
-      })
+      return done('Invalid email or Password')
     },
   ),
 )
@@ -43,11 +36,35 @@ passport.use(
   ),
 )
 
-const localAuthentication = passport.authenticate('local', {
-  session: false,
-})
+const localAuthentication = (req, res, next) => {
+  passport.authenticate(
+    'local',
+    { session: false, failWithError: true },
+    (err, user) => {
+      if (err)
+        return res.status(401).json({
+          status: 401,
+          error: err,
+        })
+      req.user = user
+      return next()
+    },
+  )(req, res, next)
+}
 
-const jwtAuthentication = passport.authenticate('jwt', { session: false })
+const jwtAuthentication = (req, res, next) => {
+  passport.authenticate('jwt', { session: false }, (err, user) => {
+    if (err) return next(err)
+    if (!user)
+      return res.status(401).json({
+        status: 401,
+        error:
+          'Unauthorized, You do not have permission to access this resource',
+      })
+    req.user = user
+    next()
+  })(req, res, next)
+}
 
 module.exports = {
   localAuthentication,

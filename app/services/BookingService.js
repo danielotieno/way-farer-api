@@ -4,6 +4,10 @@ import TripModel from '../models/Trip'
 import formatBooking from '../../lib/helpers/formatBookings'
 
 class BookingService {
+  static checkSeatingCapacity(seatingCapacity, bookedSeats) {
+    return seatingCapacity >= bookedSeats
+  }
+
   static async postBooking(req, res) {
     const user = await UserModel.getUserById(req.user.id)
     const trip = await TripModel.getTripById(req.body.tripId)
@@ -13,9 +17,20 @@ class BookingService {
         message: 'User or Trip must exist ',
       })
     }
+    const { numberOfSeats } = req.body
+    const isSeatsAvailable = this.checkSeatingCapacity(
+      trip.seatingCapacity,
+      numberOfSeats,
+    )
+    if (!isSeatsAvailable) {
+      return res.status(202).send({
+        status: 202,
+        message: `Booking failed, only ${trip.seatingCapacity} seats available`,
+      })
+    }
     req.body.userId = user.userId
     const booking = await Booking.createBooking(req.body)
-
+    TripModel.updateSeatingCapacity(trip.tripId, numberOfSeats)
     const bookedTrip = {
       bookingId: booking.bookingId,
       busNumber: trip.busNumber,

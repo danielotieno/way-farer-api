@@ -1,11 +1,26 @@
 import moment from 'moment'
 import uuid from 'uuid'
+import EncryptData from '../../lib/helpers/EncryptPassword'
 
 class UserModel {
   // class constructor
 
   constructor() {
     this.users = []
+    this.createAdmin()
+  }
+
+  createAdmin() {
+    const admin = {
+      userId: uuid.v4(),
+      firstName: 'super',
+      lastName: 'admin',
+      role: 'admin',
+      email: 'super@lorem.com',
+      password: EncryptData.generateHash('pass123456'),
+      date_created: moment().format('DD-MM-YYYY'),
+    }
+    this.users.push(admin)
   }
 
   // Create a new Normal User

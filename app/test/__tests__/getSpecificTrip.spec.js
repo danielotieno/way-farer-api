@@ -22,6 +22,7 @@ describe('Test get a specific Trip', () => {
       origin: 'Mombasa',
       destination: 'Kigali',
       fare: 4600.0,
+      tripDate: '2019-08-27',
     }
     const { body } = await request(app)
       .post('/api/v1/trips')

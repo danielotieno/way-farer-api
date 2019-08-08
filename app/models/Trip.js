@@ -1,5 +1,4 @@
 // Trip Model
-import moment from 'moment'
 import uuid from 'uuid'
 
 class Trip {
@@ -16,29 +15,33 @@ class Trip {
       destination: data.destination,
       fare: data.fare,
       status: data.status || 'active',
-      tripDate: moment().format('DD-MM-YYYY'),
+      tripDate: data.tripDate,
     }
     this.trips.push(newTrip)
     return newTrip
   }
 
   getAllTrips() {
-    return this.trips
+    return this.trips.filter(trip => trip.status === 'active')
   }
 
   getTripById(tripId) {
     return this.trips.find(trip => trip.tripId === tripId)
   }
 
-  cancelTrip(tripId, data) {
+  cancelTrip(tripId) {
     const trip = this.getTripById(tripId)
-    const index = this.trips.indexOf(trip)
-    this.trips[index].status = data.status
-    return this.trips[index].status
+    trip.status = 'cancelled'
+    return trip.status
   }
 
   getBusNumber(busNumber) {
     return this.trips.find(trip => trip.busNumber === busNumber)
+  }
+
+  updateSeatingCapacity(tripId, bookedSeats) {
+    const trip = this.getTripById(tripId)
+    trip.seatingCapacity -= bookedSeats
   }
 }
 export default new Trip()

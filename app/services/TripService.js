@@ -47,7 +47,6 @@ class TripService {
     return res.status(200).send({
       status: 200,
       message: 'Trip cancelled successfully',
-      data: tripStatus,
     })
   }
 }

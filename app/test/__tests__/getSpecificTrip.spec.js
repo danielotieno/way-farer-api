@@ -11,7 +11,6 @@ describe('Test get a specific Trip', () => {
     const response = await request(app)
       .get('/api/v1/trips/1')
       .set('Authorization', `Bearer ${token}`)
-
     expect(JSON.parse(response.text).error).toEqual('Trip not found')
     expect(response.status).toBe(404)
   })
@@ -41,7 +40,6 @@ describe('Test get a specific Trip', () => {
     expect(JSON.parse(response.text).message).toEqual(
       'Successfully retrieved a Trip',
     )
-
     expect(response.status).toBe(200)
   })
 })

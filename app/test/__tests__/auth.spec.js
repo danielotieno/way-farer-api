@@ -1,6 +1,5 @@
+import request from 'supertest'
 import app from '../../index'
-
-const request = require('supertest')
 
 describe('Test Authentication', () => {
   test('It should register user successfully', async () => {
@@ -32,11 +31,10 @@ describe('Test Authentication', () => {
       .post('/api/v1/auth/signup/admin')
       .set('Content-Type', 'application/json')
       .send(payload)
-    expect(JSON.parse(response.text).status).toEqual(201)
-    expect(JSON.parse(response.text).message).toEqual(
-      'Admin created successfully',
-    )
-    expect(response.status).toBe(201)
+    console.log(response)
+    expect(JSON.parse(response.text).status).toEqual(400)
+    expect(JSON.parse(response.text).error).toEqual('User already exists')
+    expect(response.status).toBe(400)
   })
 
   test('Admin already exists when creating admin with the same email', async () => {

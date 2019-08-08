@@ -1,5 +1,4 @@
 import request from 'supertest'
-import { wait } from '@hapi/hoek'
 import app from '../../index'
 import getToken from '../testHelper'
 
@@ -45,7 +44,6 @@ describe('Test delete a booking', () => {
     const res = await request(app)
       .delete(`/api/v1/bookings/${body.data.bookingId}`)
       .set('Authorization', `Bearer ${token}`)
-    console.log(res)
     expect(res.status).toBe(204)
   })
 })

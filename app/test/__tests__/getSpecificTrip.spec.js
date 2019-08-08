@@ -1,10 +1,17 @@
+import request from 'supertest'
 import app from '../../index'
-
-const request = require('supertest')
+import getToken from '../testHelper'
 
 describe('Test get a specific Trip', () => {
+  let token
+  beforeEach(async () => {
+    token = await getToken()
+  })
   test('It should respond with not found when passing wrong id', async () => {
-    const response = await request(app).get('/api/v1/trips/1')
+    const response = await request(app)
+      .get('/api/v1/trips/1')
+      .set('Authorization', `Bearer ${token}`)
+
     expect(JSON.parse(response.text).error).toEqual('Trip not found')
     expect(response.status).toBe(404)
   })
@@ -19,9 +26,12 @@ describe('Test get a specific Trip', () => {
     }
     const { body } = await request(app)
       .post('/api/v1/trips')
+      .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
-    const response = await request(app).get(`/api/v1/trips/${body.data.tripId}`)
+    const response = await request(app)
+      .get(`/api/v1/trips/${body.data.tripId}`)
+      .set('Authorization', `Bearer ${token}`)
     expect(response.body.data).toHaveProperty('seatingCapacity', 24)
     expect(response.body.data).toHaveProperty('busNumber', 'RAD 264 K')
     expect(response.body.data).toHaveProperty('origin', 'Mombasa')

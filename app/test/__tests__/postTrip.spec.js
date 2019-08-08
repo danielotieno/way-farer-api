@@ -19,7 +19,7 @@ describe('Test creating a trip', () => {
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
-    expect(JSON.parse(response.text).error[0].message).toEqual(
+    expect(JSON.parse(response.text).error).toEqual(
       '"seatingCapacity" is required',
     )
     expect(response.status).toBe(400)
@@ -37,9 +37,7 @@ describe('Test creating a trip', () => {
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
-    expect(JSON.parse(response.text).error[0].message).toEqual(
-      '"busNumber" is required',
-    )
+    expect(JSON.parse(response.text).error).toEqual('"busNumber" is required')
     expect(response.status).toBe(400)
   })
 
@@ -56,9 +54,7 @@ describe('Test creating a trip', () => {
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
-    expect(JSON.parse(response.text).error[0].message).toEqual(
-      '"origin" is required',
-    )
+    expect(JSON.parse(response.text).error).toEqual('"origin" is required')
     expect(response.status).toBe(400)
   })
 
@@ -74,9 +70,7 @@ describe('Test creating a trip', () => {
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
-    expect(JSON.parse(response.text).error[0].message).toEqual(
-      '"destination" is required',
-    )
+    expect(JSON.parse(response.text).error).toEqual('"destination" is required')
     expect(response.status).toBe(400)
   })
 
@@ -92,9 +86,7 @@ describe('Test creating a trip', () => {
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
-    expect(JSON.parse(response.text).error[0].message).toEqual(
-      '"fare" is required',
-    )
+    expect(JSON.parse(response.text).error).toEqual('"fare" is required')
     expect(response.status).toBe(400)
   })
 

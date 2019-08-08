@@ -24,5 +24,16 @@ class Booking {
   getAllBookings() {
     return this.bookings
   }
+
+  getSpecificBooking(bookingId) {
+    return this.bookings.find(booking => booking.bookingId === bookingId)
+  }
+
+  deleteBooking(bookingId) {
+    const booking = this.getSpecificBooking(bookingId)
+    const index = this.bookings.indexOf(booking)
+    this.bookings.splice(index, 1)
+    return 'Booking deleted successfully'
+  }
 }
 export default new Booking()

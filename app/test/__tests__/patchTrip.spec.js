@@ -24,7 +24,6 @@ describe('Test PATCH a specific Trip', () => {
     const response = await request(app).patch(
       `/api/v1/trips/${body.data.tripId}/cancel`,
     )
-    console.log(response.text)
     expect(JSON.parse(response.text).status).toEqual(200)
     expect(JSON.parse(response.text).message).toEqual(
       'Trip cancelled successfully',

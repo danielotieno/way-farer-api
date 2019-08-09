@@ -2,7 +2,11 @@ import TripModel from '../models/Trip'
 
 class TripService {
   static async postTrip(req, res) {
-    const isTrip = await TripModel.getBusNumber(req.body.busNumber)
+    const { busNumber, tripDate } = req.body
+    const isTrip = await TripModel.getTripByBusNumberAndDate(
+      busNumber,
+      tripDate,
+    )
     if (isTrip) {
       return res.status(400).send({ status: 400, error: 'Trip already exists' })
     }

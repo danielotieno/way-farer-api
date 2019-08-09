@@ -39,6 +39,12 @@ class Trip {
     return this.trips.find(trip => trip.busNumber === busNumber)
   }
 
+  getTripByBusNumberAndDate(busNumber, tripDate) {
+    return this.trips.find(
+      trip => trip.busNumber === busNumber && trip.tripDate === tripDate,
+    )
+  }
+
   updateTrip(tripId, data) {
     const trip = this.getTripById(tripId)
     const index = this.trips.indexOf(trip)

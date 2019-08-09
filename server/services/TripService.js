@@ -42,6 +42,11 @@ class TripService {
     if (!trip) {
       return res.status(404).send({ status: 404, error: 'Trip not found' })
     }
+    if (trip.status !== 'active') {
+      return res
+        .status(400)
+        .send({ status: 400, error: 'Trip already cancelled' })
+    }
     const tripStatus = await TripModel.cancelTrip(req.params.id, req.body)
     if (tripStatus === 'active') {
       return res

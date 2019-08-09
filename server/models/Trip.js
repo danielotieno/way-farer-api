@@ -39,6 +39,18 @@ class Trip {
     return this.trips.find(trip => trip.busNumber === busNumber)
   }
 
+  updateTrip(tripId, data) {
+    const trip = this.getTripById(tripId)
+    const index = this.trips.indexOf(trip)
+    this.trips[index].seatingCapacity =
+      data.seatingCapacity || trip.seatingCapacity
+    this.trips[index].busNumber = data.busNumber || trip.busNumber
+    this.trips[index].origin = data.origin || trip.origin
+    this.trips[index].destination = data.destination || trip.destination
+    this.trips[index].fare = data.fare || trip.fare
+    return this.trips[index]
+  }
+
   updateSeatingCapacity(tripId, bookedSeats) {
     const trip = this.getTripById(tripId)
     trip.seatingCapacity -= bookedSeats

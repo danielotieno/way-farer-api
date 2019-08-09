@@ -6,7 +6,7 @@ const tripValidation = (req, res, next) => {
   const schema = {
     seatingCapacity: Joi.number()
       .min(3)
-      .max(24)
+      .max(50)
       .integer()
       .positive()
       .required(),

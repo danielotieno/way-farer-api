@@ -35,7 +35,7 @@ class UserModel {
       date_created: moment().format('DD-MM-YYYY'),
     }
     this.users.push(newUser)
-    return 'User created successfully'
+    return newUser
   }
 
   // Return an user with userId

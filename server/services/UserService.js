@@ -10,8 +10,15 @@ class UserService {
       return res.status(400).send({ status: 400, error: 'User already exists' })
     req.body.password = EncryptData.generateHash(req.body.password)
     req.body.role = 'user'
-    const message = UserModel.createUser(req.body)
-    return res.status(201).send({ status: 201, message })
+    const getUser = UserModel.createUser(req.body)
+    const user = {
+      firstName: getUser.firstName,
+      lastName: getUser.lastName,
+      email: getUser.email,
+    }
+    return res
+      .status(201)
+      .send({ status: 201, message: 'User created successfully', data: user })
   }
 
   static async registerAdmin(req, res) {

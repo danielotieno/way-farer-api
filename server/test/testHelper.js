@@ -23,8 +23,7 @@ const loginUser = async () => {
     .post('/api/v1/auth/login')
     .set('Content-Type', 'application/json')
     .send(payload)
-
-  const { token } = JSON.parse(response.text)
+  const { token } = JSON.parse(response.text).data
   return token
 }
 

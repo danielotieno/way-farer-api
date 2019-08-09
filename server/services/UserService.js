@@ -37,9 +37,17 @@ class UserService {
       config.secretKey,
       { expiresIn: config.jwtExpiration },
     )
-    return res
-      .status(200)
-      .send({ status: 200, message: 'Logged In successfully', token })
+    const loggedInUser = {
+      token,
+      firstName: req.user.firstName,
+      lastName: req.user.lastName,
+      email: req.user.email,
+    }
+    return res.status(200).send({
+      status: 200,
+      message: 'Logged In successfully',
+      data: loggedInUser,
+    })
   }
 }
 

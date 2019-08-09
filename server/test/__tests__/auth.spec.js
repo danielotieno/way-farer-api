@@ -128,4 +128,41 @@ describe('Test Authentication', () => {
     )
     expect(response.status).toBe(400)
   })
+
+  test('It should return invalid when login with wrong credential', async () => {
+    const payload = {
+      email: 'dan@gmail.com',
+      password: '123456789',
+    }
+    const response = await request(app)
+      .post('/api/v1/auth/login')
+      .set('Content-Type', 'application/json')
+      .send(payload)
+    expect(JSON.parse(response.text).error).toEqual('Invalid email or password')
+    expect(response.status).toBe(400)
+  })
+
+  test('It should login user successfully', async () => {
+    const payload = {
+      firstName: 'Daniel',
+      lastName: 'Otieno',
+      email: 'oti@gmail.com',
+      password: '123456789',
+    }
+    await request(app)
+      .post('/api/v1/auth/signup')
+      .set('Content-Type', 'application/json')
+      .send(payload)
+    const credentials = {
+      email: 'oti@gmail.com',
+      password: '123456789',
+    }
+    const response = await request(app)
+      .post('/api/v1/auth/login')
+      .set('Content-Type', 'application/json')
+      .send(credentials)
+    expect(JSON.parse(response.text).status).toEqual(200)
+    expect(JSON.parse(response.text).message).toEqual('Logged In successfully')
+    expect(response.status).toBe(200)
+  })
 })

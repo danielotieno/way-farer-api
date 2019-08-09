@@ -1,6 +1,6 @@
 import moment from 'moment'
 import uuid from 'uuid'
-import EncryptData from '../../lib/helpers/EncryptPassword'
+import EncryptData from '../helpers/EncryptPassword'
 
 class UserModel {
   // class constructor

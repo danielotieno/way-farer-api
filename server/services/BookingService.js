@@ -1,7 +1,7 @@
 import Booking from '../models/Booking'
 import UserModel from '../models/User'
 import TripModel from '../models/Trip'
-import formatBooking from '../../lib/helpers/formatBookings'
+import formatBooking from '../helpers/formatBookings'
 
 class BookingService {
   static checkSeatingCapacity(seatingCapacity, bookedSeats) {

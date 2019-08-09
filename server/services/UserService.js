@@ -1,7 +1,7 @@
 import UserModel from '../models/User'
-import EncryptData from '../../lib/helpers/EncryptPassword'
-import createToken from '../../lib/helpers/jwtToken'
-import config from '../../config/config'
+import EncryptData from '../helpers/EncryptPassword'
+import createToken from '../helpers/jwtToken'
+import config from '../config/config'
 
 class UserService {
   static async registerUser(req, res) {

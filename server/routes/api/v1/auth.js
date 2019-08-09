@@ -4,9 +4,9 @@ import UserController from '../../../controller/UsersController'
 const {
   signupValidation,
   loginValidation,
-} = require('../../../../lib/middlewares/validations')
+} = require('../../../middlewares/validations')
 
-const { localAuthentication } = require('../../../../config/passportConfig')
+const { localAuthentication } = require('../../../config/passportConfig')
 
 const router = Router()
 

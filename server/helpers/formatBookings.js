@@ -1,5 +1,5 @@
-import UserModel from '../../app/models/User'
-import TripModel from '../../app/models/Trip'
+import UserModel from '../models/User'
+import TripModel from '../models/Trip'
 
 const formatBooking = async booking => {
   const user = await UserModel.getUserById(booking.userId)

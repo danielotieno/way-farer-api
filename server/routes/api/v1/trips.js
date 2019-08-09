@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import TripsController from '../../../controller/TripsController'
-import isAdmin from '../../../../lib/middlewares/isAdmin'
+import isAdmin from '../../../middlewares/isAdmin'
 
-const { tripValidation } = require('../../../../lib/middlewares/validations')
-const { jwtAuthentication } = require('../../../../config/passportConfig')
+const { tripValidation } = require('../../../middlewares/validations')
+const { jwtAuthentication } = require('../../../config/passportConfig')
 
 const router = Router()
 

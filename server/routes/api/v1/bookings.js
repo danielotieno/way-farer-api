@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import BookingsController from '../../../controller/BookingsController'
 
-const { bookingValidation } = require('../../../../lib/middlewares/validations')
-const { jwtAuthentication } = require('../../../../config/passportConfig')
+const { bookingValidation } = require('../../../middlewares/validations')
+const { jwtAuthentication } = require('../../../config/passportConfig')
 
 const router = Router()
 

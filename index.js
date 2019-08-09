@@ -1,7 +1,7 @@
 // server to run the app
 import logger from 'fancy-log'
-import config from './config/config'
-import app from './app'
+import config from './server/config/config'
+import app from './server'
 
 const { port } = config
 app.listen(port, () => {

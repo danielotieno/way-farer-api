@@ -1,7 +1,12 @@
 import request from 'supertest'
 import app from '../../index'
+import getToken from '../testHelper'
 
 describe('Test Authentication', () => {
+  let token
+  beforeEach(async () => {
+    token = await getToken()
+  })
   test('It should register user successfully', async () => {
     const payload = {
       firstName: 'Daniel',
@@ -32,6 +37,7 @@ describe('Test Authentication', () => {
     }
     const response = await request(app)
       .post('/api/v1/auth/signup/admin')
+      .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
     expect(JSON.parse(response.text).status).toEqual(400)

@@ -16,8 +16,8 @@ const signupUser = async () => {
 
 const loginUser = async () => {
   const payload = {
-    email: 'oti@gmail.com',
-    password: '123456789',
+    email: 'super@lorem.com',
+    password: 'pass123456',
   }
   const response = await request(app)
     .post('/api/v1/auth/login')

@@ -14,7 +14,10 @@ const routes = app => {
   app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
   app.use('*', (req, res) =>
-    res.status(404).json({ message: 'Kindly, check if your URL is correct' }),
+    res.status(404).json({
+      message:
+        'Kindly, check if your URL is correct. To view docs kindly visit https://wayfarer-api-app.herokuapp.com/docs/',
+    }),
   )
 
   return app

@@ -9,6 +9,8 @@ WayFarer is a public bus transportation booking service.
 An API that will provide a fucntionality for WayFarer Admins to be able to
 create and manage trips.
 
+App is available at [wayfarer](https://wayfarer-api-app.herokuapp.com/docs/)
+
 ## Application features
 
 Appart from normal authentication the app will provide the following
@@ -76,7 +78,7 @@ Then run the command below to run test
 
 Then run the command below to start the application in development mode
 
-`yarn start`
+`yarn start:dev`
 
 ### Switch to the master branch for stable/working features
 

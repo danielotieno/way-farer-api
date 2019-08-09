@@ -16,6 +16,10 @@ class TripsController {
   static async cancelTrip(req, res) {
     TripService.updateTripStatus(req, res)
   }
+
+  static async updateTrip(req, res) {
+    TripService.updatedTrip(req, res)
+  }
 }
 
 export default TripsController

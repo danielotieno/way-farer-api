@@ -50,7 +50,7 @@ class TripService {
     })
   }
 
-  static async updateTrip(req, res) {
+  static async updatedTrip(req, res) {
     const trip = TripModel.getTripById(req.params.id)
     if (!trip) {
       return res.status(404).send({ message: 'Trip not found' })

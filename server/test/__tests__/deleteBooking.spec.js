@@ -31,7 +31,7 @@ describe('Test delete a booking', () => {
       .set('Content-Type', 'application/json')
       .send(payload)
     const result = JSON.parse(response.text)
-    const { tripId } = result.data
+    const { trip_id: tripId } = result.data
 
     const booking = {
       tripId,
@@ -43,7 +43,7 @@ describe('Test delete a booking', () => {
       .set('Content-Type', 'application/json')
       .send(booking)
     const res = await request(app)
-      .delete(`/api/v1/bookings/${body.data.bookingId}`)
+      .delete(`/api/v1/bookings/${body.data.booking_id}`)
       .set('Authorization', `Bearer ${token}`)
     expect(res.status).toBe(204)
   })

@@ -12,8 +12,8 @@ class UserService {
     req.body.role = 'user'
     const getUser = UserModel.createUser(req.body)
     const user = {
-      firstName: getUser.firstName,
-      lastName: getUser.lastName,
+      first_name: getUser.firstName,
+      last_name: getUser.lastName,
       email: getUser.email,
     }
     return res
@@ -39,8 +39,8 @@ class UserService {
     )
     const loggedInUser = {
       token,
-      firstName: req.user.firstName,
-      lastName: req.user.lastName,
+      first_name: req.user.firstName,
+      last_name: req.user.lastName,
       email: req.user.email,
     }
     return res.status(200).send({

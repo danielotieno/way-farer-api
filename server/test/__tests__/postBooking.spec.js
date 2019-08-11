@@ -23,7 +23,7 @@ describe('Test POST a Booking', () => {
       .set('Content-Type', 'application/json')
       .send(payload)
     const result = JSON.parse(response.text)
-    const { tripId } = result.data
+    const { trip_id: tripId } = result.data
 
     const booking = {
       tripId,

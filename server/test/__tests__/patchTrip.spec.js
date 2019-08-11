@@ -30,7 +30,7 @@ describe('Test PATCH a specific Trip', () => {
       .set('Content-Type', 'application/json')
       .send(payload)
     const response = await request(app)
-      .patch(`/api/v1/trips/${body.data.tripId}/cancel`)
+      .patch(`/api/v1/trips/${body.data.trip_id}/cancel`)
       .set('Authorization', `Bearer ${token}`)
     expect(JSON.parse(response.text).status).toEqual(200)
     expect(JSON.parse(response.text).message).toEqual(

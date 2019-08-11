@@ -17,8 +17,28 @@ class Trip {
       status: data.status || 'active',
       tripDate: data.tripDate,
     }
-    this.trips.push(newTrip)
-    return newTrip
+    const {
+      tripId,
+      seatingCapacity,
+      busNumber,
+      origin,
+      destination,
+      fare,
+      status,
+      tripDate,
+    } = newTrip
+    const formattedNewTrip = {
+      trip_id: tripId,
+      seating_capacity: seatingCapacity,
+      bus_number: busNumber,
+      origin,
+      destination,
+      fare,
+      status,
+      trip_date: tripDate,
+    }
+    this.trips.push(formattedNewTrip)
+    return formattedNewTrip
   }
 
   getAllTrips() {
@@ -26,7 +46,7 @@ class Trip {
   }
 
   getTripById(tripId) {
-    return this.trips.find(trip => trip.tripId === tripId)
+    return this.trips.find(trip => trip.trip_id === tripId)
   }
 
   cancelTrip(tripId) {
@@ -36,12 +56,12 @@ class Trip {
   }
 
   getBusNumber(busNumber) {
-    return this.trips.find(trip => trip.busNumber === busNumber)
+    return this.trips.find(trip => trip.bus_number === busNumber)
   }
 
   getTripByBusNumberAndDate(busNumber, tripDate) {
     return this.trips.find(
-      trip => trip.busNumber === busNumber && trip.tripDate === tripDate,
+      trip => trip.bus_number === busNumber && trip.trip_date === tripDate,
     )
   }
 
@@ -59,7 +79,7 @@ class Trip {
 
   updateSeatingCapacity(tripId, bookedSeats) {
     const trip = this.getTripById(tripId)
-    trip.seatingCapacity -= bookedSeats
+    trip.seating_capacity -= bookedSeats
   }
 }
 export default new Trip()

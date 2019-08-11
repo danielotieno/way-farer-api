@@ -6,14 +6,14 @@ const formatBooking = async booking => {
   const trip = await TripModel.getTripById(booking.tripId)
 
   const formattedBooking = {
-    bookingId: booking.bookingId,
-    busNumber: trip.busNumber,
-    tripDate: trip.tripDate,
-    firstName: user.firstName,
-    lastName: user.lastName,
+    booking_id: booking.bookingId,
+    bus_number: trip.busNumber,
+    trip_date: trip.tripDate,
+    first_name: user.firstName,
+    last_name: user.lastName,
     email: user.email,
-    numberOfSeats: booking.numberOfSeats,
-    createdOn: booking.createdOn,
+    number_of_seats: booking.numberOfSeats,
+    created_on: booking.createdOn,
   }
 
   return formattedBooking

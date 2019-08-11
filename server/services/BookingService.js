@@ -19,27 +19,27 @@ class BookingService {
     }
     const { numberOfSeats } = req.body
     const isSeatsAvailable = this.checkSeatingCapacity(
-      trip.seatingCapacity,
+      trip.seating_capacity,
       numberOfSeats,
     )
     if (!isSeatsAvailable) {
       return res.status(202).send({
         status: 202,
-        message: `Booking failed, only ${trip.seatingCapacity} seats available`,
+        message: `Booking failed, only ${trip.seating_capacity} seats available`,
       })
     }
     req.body.userId = user.userId
     const booking = await Booking.createBooking(req.body)
-    TripModel.updateSeatingCapacity(trip.tripId, numberOfSeats)
+    TripModel.updateSeatingCapacity(trip.trip_id, numberOfSeats)
     const bookedTrip = {
-      bookingId: booking.bookingId,
-      busNumber: trip.busNumber,
-      tripDate: trip.tripDate,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      booking_id: booking.bookingId,
+      bus_number: trip.busNumber,
+      trip_date: trip.tripDate,
+      first_name: user.firstName,
+      last_name: user.lastName,
       email: user.email,
-      numberOfSeats: booking.numberOfSeats,
-      createdOn: booking.createdOn,
+      number_of_seats: booking.numberOfSeats,
+      created_on: booking.createdOn,
     }
     return res.status(201).send({
       status: 201,

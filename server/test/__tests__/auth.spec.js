@@ -18,8 +18,8 @@ describe('Test Authentication', () => {
       .post('/api/v1/auth/signup')
       .set('Content-Type', 'application/json')
       .send(payload)
-    expect(response.body.data).toHaveProperty('firstName', 'Daniel')
-    expect(response.body.data).toHaveProperty('lastName', 'Otieno')
+    expect(response.body.data).toHaveProperty('first_name', 'Daniel')
+    expect(response.body.data).toHaveProperty('last_name', 'Otieno')
     expect(response.body.data).toHaveProperty('email', 'oti@gmail.com')
     expect(JSON.parse(response.text).status).toEqual(201)
     expect(JSON.parse(response.text).message).toEqual(

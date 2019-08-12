@@ -14,7 +14,6 @@ if (app.get('env') === 'development') {
   app.use(morgan('dev'))
 }
 app.use(passport.initialize())
-
 routes(app)
 
 export default app

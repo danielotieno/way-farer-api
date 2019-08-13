@@ -42,7 +42,7 @@ class TripService {
   }
 
   static async getAll(req, res) {
-    const trips = TripModel.getAllTrips()
+    const trips = await TripModel.getAllTrips()
     return res.status(200).send({
       status: 200,
       message: 'Trips retrieved successfully',

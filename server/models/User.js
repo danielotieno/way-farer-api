@@ -26,7 +26,6 @@ class UserModel {
     }
   }
 
-  // Create a new Normal User
   async createUser(data) {
     const newUser = {
       firstName: data.firstName,

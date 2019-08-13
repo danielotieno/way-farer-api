@@ -9,7 +9,7 @@ describe('Test get all Bookings', () => {
   })
   test('It should return no bookings when booking array is empty', async () => {
     const response = await request(app)
-      .get('/api/v1/bookings')
+      .get('/api/v2/bookings')
       .set('Authorization', `Bearer ${token}`)
     expect(JSON.parse(response.text).status).toEqual(200)
     expect(JSON.parse(response.text).message).toEqual('There are no bookings')
@@ -27,7 +27,7 @@ describe('Test get all Bookings', () => {
       tripDate: '2019-08-27',
     }
     const response = await request(app)
-      .post('/api/v1/trips')
+      .post('/api/v2/trips')
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
@@ -39,12 +39,12 @@ describe('Test get all Bookings', () => {
       numberOfSeats: 4,
     }
     await request(app)
-      .post('/api/v1/bookings')
+      .post('/api/v2/bookings')
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(booking)
     const res = await request(app)
-      .get('/api/v1/bookings')
+      .get('/api/v2/bookings')
       .set('Authorization', `Bearer ${token}`)
     expect(JSON.parse(res.text).status).toEqual(200)
     expect(JSON.parse(res.text).message).toEqual(

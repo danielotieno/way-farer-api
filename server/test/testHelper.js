@@ -9,7 +9,7 @@ const signupUser = async () => {
     password: '123456789',
   }
   await request(app)
-    .post('/api/v1/auth/signup/admin')
+    .post('/api/v2/auth/signup/admin')
     .set('Content-Type', 'application/json')
     .send(payload)
 }
@@ -20,7 +20,7 @@ const loginUser = async () => {
     password: 'pass123456',
   }
   const response = await request(app)
-    .post('/api/v1/auth/login')
+    .post('/api/v2/auth/login')
     .set('Content-Type', 'application/json')
     .send(payload)
   const { token } = JSON.parse(response.text).data

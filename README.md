@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/danielotieno/way-farer-api.svg?branch=develop)](https://travis-ci.org/danielotieno/way-farer-api)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/89c988eb1fc6305e7577/test_coverage)](https://codeclimate.com/github/danielotieno/way-farer-api/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/89c988eb1fc6305e7577/maintainability)](https://codeclimate.com/github/danielotieno/way-farer-api/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v2/badges/89c988eb1fc6305e7577/test_coverage)](https://codeclimate.com/github/danielotieno/way-farer-api/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v2/badges/89c988eb1fc6305e7577/maintainability)](https://codeclimate.com/github/danielotieno/way-farer-api/maintainability)
 
 # Welcome to WayFare Booking Service API
 
@@ -39,17 +39,17 @@ The following endpoints should be available to use once the API is complete:
 
 | EndPoint                            | Functionality         |
 | ----------------------------------- | --------------------- |
-| POST /api/v1/auth/signup            | Create user account   |
-| POST /api/v1/auth/signin            | Login a user          |
+| POST /api/v2/auth/signup            | Create user account   |
+| POST /api/v2/auth/signin            | Login a user          |
 |                                     |                       |
-| POST /api/v1/trips                  | Create a trip.        |
-| GET /api/v1/trips/<:trip-id>        | Get a specific trip.  |
-| GET /api/v1/trips                   | Get all trips         |
+| POST /api/v2/trips                  | Create a trip.        |
+| GET /api/v2/trips/<:trip-id>        | Get a specific trip.  |
+| GET /api/v2/trips                   | Get all trips         |
 | PATCH /trips/<:trip-id>/cancel      | Cancel a trip         |
 |                                     |                       |
-| POST /api/v1/bookings               | Book a seat on a trip |
-| GET /api/v1/bookings                | View all bookings.    |
-| DEL /api/v1//bookings/<:booking-id> | Delete a booking.     |
+| POST /api/v2/bookings               | Book a seat on a trip |
+| GET /api/v2/bookings                | View all bookings.    |
+| DEL /api/v2//bookings/<:booking-id> | Delete a booking.     |
 |                                     |                       |
 
 ### Technologies used to build the application

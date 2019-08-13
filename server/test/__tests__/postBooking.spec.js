@@ -18,7 +18,7 @@ describe('Test POST a Booking', () => {
       tripDate: '2019-08-27',
     }
     const response = await request(app)
-      .post('/api/v1/trips')
+      .post('/api/v2/trips')
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
@@ -30,7 +30,7 @@ describe('Test POST a Booking', () => {
       numberOfSeats: 4,
     }
     const res = await request(app)
-      .post('/api/v1/bookings')
+      .post('/api/v2/bookings')
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(booking)

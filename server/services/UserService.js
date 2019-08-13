@@ -5,20 +5,26 @@ import config from '../config/config'
 
 class UserService {
   static async registerUser(req, res) {
-    const userExist = UserModel.getUserByEmail(req.body.email)
-    if (userExist)
-      return res.status(400).send({ status: 400, error: 'User already exists' })
-    req.body.password = EncryptData.generateHash(req.body.password)
-    req.body.role = 'user'
-    const getUser = UserModel.createUser(req.body)
-    const user = {
-      first_name: getUser.firstName,
-      last_name: getUser.lastName,
-      email: getUser.email,
+    try {
+      const existingUser = await UserModel.getUserByEmail(req.body.email)
+      if (existingUser)
+        return res
+          .status(400)
+          .send({ status: 400, error: 'User already exists' })
+      req.body.password = EncryptData.generateHash(req.body.password)
+      req.body.role = 'user'
+      await UserModel.createUser(req.body)
+      const user = {
+        first_name: req.body.firstName,
+        last_name: req.body.lastName,
+        email: req.body.email,
+      }
+      return res
+        .status(201)
+        .send({ status: 201, message: 'User created successfully', data: user })
+    } catch (error) {
+      return error
     }
-    return res
-      .status(201)
-      .send({ status: 201, message: 'User created successfully', data: user })
   }
 
   static async registerAdmin(req, res) {
@@ -39,8 +45,8 @@ class UserService {
     )
     const loggedInUser = {
       token,
-      first_name: req.user.firstName,
-      last_name: req.user.lastName,
+      first_name: req.user.first_name,
+      last_name: req.user.last_name,
       email: req.user.email,
     }
     return res.status(200).send({

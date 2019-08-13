@@ -4,7 +4,7 @@ import trips from './trips'
 import auth from './auth'
 import bookings from './bookings'
 
-const apiPrefix = '/api/v1'
+const apiPrefix = '/api/v2'
 
 const routes = app => {
   app.use(apiPrefix, trips)

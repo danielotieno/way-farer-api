@@ -1,11 +1,16 @@
 import request from 'supertest'
 import app from '../../index'
 import getToken from '../testHelper'
+import tables from '../../database/tableSql'
 
 describe('Test Authentication', () => {
   let token
-  beforeEach(async () => {
+  beforeAll(async () => {
     token = await getToken()
+    await tables.createTables()
+  })
+  afterAll(async () => {
+    await tables.dropTables()
   })
   test('It should register user successfully', async () => {
     const payload = {
@@ -15,7 +20,7 @@ describe('Test Authentication', () => {
       password: '123456789',
     }
     const response = await request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .set('Content-Type', 'application/json')
       .send(payload)
     expect(response.body.data).toHaveProperty('first_name', 'Daniel')
@@ -36,7 +41,7 @@ describe('Test Authentication', () => {
       password: '123456789',
     }
     const response = await request(app)
-      .post('/api/v1/auth/signup/admin')
+      .post('/api/v2/auth/signup/admin')
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
@@ -52,7 +57,7 @@ describe('Test Authentication', () => {
       password: '123456789',
     }
     const response = await request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .set('Content-Type', 'application/json')
       .send(payload)
     expect(JSON.parse(response.text).error).toEqual('"firstName" is required')
@@ -66,7 +71,7 @@ describe('Test Authentication', () => {
       password: '123456789',
     }
     const response = await request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .set('Content-Type', 'application/json')
       .send(payload)
     expect(JSON.parse(response.text).error).toEqual('"lastName" is required')
@@ -80,7 +85,7 @@ describe('Test Authentication', () => {
       password: '123456789',
     }
     const response = await request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .set('Content-Type', 'application/json')
       .send(payload)
     expect(JSON.parse(response.text).error).toEqual('"email" is required')
@@ -94,7 +99,7 @@ describe('Test Authentication', () => {
       email: 'dan@gmail.com',
     }
     const response = await request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .set('Content-Type', 'application/json')
       .send(payload)
     expect(JSON.parse(response.text).error).toEqual('"password" is required')
@@ -109,7 +114,7 @@ describe('Test Authentication', () => {
       password: '123456789',
     }
     const response = await request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .set('Content-Type', 'application/json')
       .send(payload)
     expect(JSON.parse(response.text).error).toEqual(
@@ -126,7 +131,7 @@ describe('Test Authentication', () => {
       password: '12345',
     }
     const response = await request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .set('Content-Type', 'application/json')
       .send(payload)
     expect(JSON.parse(response.text).error).toEqual(
@@ -141,7 +146,7 @@ describe('Test Authentication', () => {
       password: '123456789',
     }
     const response = await request(app)
-      .post('/api/v1/auth/login')
+      .post('/api/v2/auth/login')
       .set('Content-Type', 'application/json')
       .send(payload)
     expect(JSON.parse(response.text).error).toEqual('Invalid email or password')
@@ -156,7 +161,7 @@ describe('Test Authentication', () => {
       password: '123456789',
     }
     await request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .set('Content-Type', 'application/json')
       .send(payload)
     const credentials = {
@@ -164,7 +169,7 @@ describe('Test Authentication', () => {
       password: '123456789',
     }
     const response = await request(app)
-      .post('/api/v1/auth/login')
+      .post('/api/v2/auth/login')
       .set('Content-Type', 'application/json')
       .send(credentials)
     expect(JSON.parse(response.text).status).toEqual(200)

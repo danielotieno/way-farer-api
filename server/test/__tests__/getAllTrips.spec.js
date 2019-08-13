@@ -9,7 +9,7 @@ describe('Test get all Trips', () => {
   })
   test('It should reponse the GET method', async () => {
     const response = await request(app)
-      .get('/api/v1/trips')
+      .get('/api/v2/trips')
       .set('Authorization', `Bearer ${token}`)
     expect(JSON.parse(response.text).status).toEqual(200)
     expect(JSON.parse(response.text).message).toEqual(

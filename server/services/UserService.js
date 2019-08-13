@@ -14,14 +14,19 @@ class UserService {
       const { first_name: firstName, last_name: lastName, email } = req.body
       const password = EncryptData.generateHash(req.body.password)
       const role = 'user'
-      await UserModel.createUser({
+      const createdUser = await UserModel.createUser({
         firstName,
         lastName,
         email,
         role,
         password,
       })
+      const token = createToken(
+        { id: createdUser.user_id, role },
+        config.secretKey,
+      )
       const user = {
+        token,
         first_name: firstName,
         last_name: lastName,
         email,
@@ -48,7 +53,6 @@ class UserService {
     const token = createToken(
       { id: req.user.user_id, role: req.user.role },
       config.secretKey,
-      { expiresIn: config.jwtExpiration },
     )
     const { first_name: firstName, last_name: lastName, email } = req.user
     const loggedInUser = {

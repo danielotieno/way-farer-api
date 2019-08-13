@@ -27,8 +27,8 @@ class Trip {
     return db.any('select * from trips')
   }
 
-  getTripById(tripId) {
-    return this.trips.find(trip => trip.trip_id === tripId)
+  async getTripById(tripId) {
+    return db.oneOrNone('select * from trips where trip_id = $1', tripId)
   }
 
   cancelTrip(tripId) {

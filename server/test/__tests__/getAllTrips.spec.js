@@ -1,15 +1,24 @@
 import request from 'supertest'
-import app from '../../index'
+import start from '../../index'
 import getToken from '../testHelper'
+import tables from '../../database/tableSql'
+
+jest.setTimeout(10000)
 
 describe('Test get all Trips', () => {
   let token
-  beforeEach(async () => {
-    token = await getToken()
+  let app
+  beforeAll(async () => {
+    await tables.createTables()
+    app = await start()
+    token = await getToken(app)
+  })
+  afterAll(async () => {
+    await tables.dropTables()
   })
   test('It should reponse the GET method', async () => {
     const response = await request(app)
-      .get('/api/v1/trips')
+      .get('/api/v2/trips')
       .set('Authorization', `Bearer ${token}`)
     expect(JSON.parse(response.text).status).toEqual(200)
     expect(JSON.parse(response.text).message).toEqual(

@@ -10,7 +10,7 @@ const envVarsSchema = Joi.object({
     .required(),
   PORT: Joi.number().default(8080),
   DATABASE: Joi.string().required(),
-  TEST_DB: Joi.string().default('wayfarer_test_db'),
+  TEST_DB: Joi.string().default('wayfarertestdb'),
   DATABASE_PASSWORD: Joi.string().default(null),
   DATABASE_USER: Joi.string().default('postgres'),
   DATABASE_URL: Joi.string().default(null),

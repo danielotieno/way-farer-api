@@ -1,35 +1,34 @@
 import request from 'supertest'
-import app from '..'
 
-const signupUser = async () => {
+const signupUser = async app => {
   const payload = {
-    firstName: 'Daniel',
-    lastName: 'Otieno',
-    email: 'oti@gmail.com',
-    password: '123456789',
+    firstName: 'super',
+    lastName: 'lorem',
+    email: 'super@lorem.com',
+    password: 'pass123456',
   }
   await request(app)
-    .post('/api/v1/auth/signup/admin')
+    .post('/api/v2/auth/signup/admin')
     .set('Content-Type', 'application/json')
     .send(payload)
 }
 
-const loginUser = async () => {
+const loginUser = async app => {
   const payload = {
     email: 'super@lorem.com',
     password: 'pass123456',
   }
   const response = await request(app)
-    .post('/api/v1/auth/login')
+    .post('/api/v2/auth/login')
     .set('Content-Type', 'application/json')
     .send(payload)
   const { token } = JSON.parse(response.text).data
   return token
 }
 
-const getToken = async () => {
-  await signupUser()
-  const token = await loginUser()
+const getToken = async app => {
+  await signupUser(app)
+  const token = await loginUser(app)
   return token
 }
 

@@ -1,15 +1,24 @@
 import request from 'supertest'
-import app from '../../index'
+import start from '../../index'
 import getToken from '../testHelper'
+import tables from '../../database/tableSql'
+
+jest.setTimeout(10000)
 
 describe('Test delete a booking', () => {
   let token
-  beforeEach(async () => {
-    token = await getToken()
+  let app
+  beforeAll(async () => {
+    await tables.createTables()
+    app = await start()
+    token = await getToken(app)
+  })
+  afterAll(async () => {
+    await tables.dropTables()
   })
   test('It should respond with not found when passing wrong id', async () => {
     const response = await request(app)
-      .delete('/api/v1/bookings/1')
+      .delete('/api/v2/bookings/1')
       .set('Authorization', `Bearer ${token}`)
     expect(JSON.parse(response.text).status).toEqual(404)
     expect(JSON.parse(response.text).error).toEqual('Booking not found')
@@ -26,7 +35,7 @@ describe('Test delete a booking', () => {
       tripDate: '2019-08-27',
     }
     const response = await request(app)
-      .post('/api/v1/trips')
+      .post('/api/v2/trips')
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
@@ -38,12 +47,12 @@ describe('Test delete a booking', () => {
       numberOfSeats: 4,
     }
     const { body } = await request(app)
-      .post('/api/v1/bookings')
+      .post('/api/v2/bookings')
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(booking)
     const res = await request(app)
-      .delete(`/api/v1/bookings/${body.data.booking_id}`)
+      .delete(`/api/v2/bookings/${body.data.booking_id}`)
       .set('Authorization', `Bearer ${token}`)
     expect(res.status).toBe(204)
   })

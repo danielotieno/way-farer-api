@@ -1,13 +1,21 @@
 import request from 'supertest'
-import app from '../../index'
+import start from '../../index'
 import getToken from '../testHelper'
+import tables from '../../database/tableSql'
+
+jest.setTimeout(10000)
 
 describe('Test POST a Booking', () => {
   let token
-  beforeEach(async () => {
-    token = await getToken()
+  let app
+  beforeAll(async () => {
+    await tables.createTables()
+    app = await start()
+    token = await getToken(app)
   })
-
+  afterAll(async () => {
+    await tables.dropTables()
+  })
   test('It should be able to create a booking', async () => {
     const payload = {
       seatingCapacity: 24,
@@ -18,7 +26,7 @@ describe('Test POST a Booking', () => {
       tripDate: '2019-08-27',
     }
     const response = await request(app)
-      .post('/api/v1/trips')
+      .post('/api/v2/trips')
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
@@ -30,7 +38,7 @@ describe('Test POST a Booking', () => {
       numberOfSeats: 4,
     }
     const res = await request(app)
-      .post('/api/v1/bookings')
+      .post('/api/v2/bookings')
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(booking)

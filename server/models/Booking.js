@@ -29,7 +29,7 @@ class Booking {
     return this.bookings.find(booking => booking.bookingId === bookingId)
   }
 
-  getBookingsByUserId(userId) {
+  async getBookingsByUserId(userId) {
     return this.bookings.filter(booking => booking.userId === userId)
   }
 

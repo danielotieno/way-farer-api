@@ -1,11 +1,20 @@
 import request from 'supertest'
-import app from '../../index'
+import start from '../../index'
 import getToken from '../testHelper'
+import tables from '../../database/tableSql'
+
+jest.setTimeout(10000)
 
 describe('Test creating a trip', () => {
   let token
-  beforeEach(async () => {
-    token = await getToken()
+  let app
+  beforeAll(async () => {
+    await tables.createTables()
+    app = await start()
+    token = await getToken(app)
+  })
+  afterAll(async () => {
+    await tables.dropTables()
   })
   test('Create a trip without seating capacity', async () => {
     const payload = {
@@ -15,7 +24,7 @@ describe('Test creating a trip', () => {
       fare: 4500.0,
     }
     const response = await request(app)
-      .post('/api/v1/trips')
+      .post('/api/v2/trips')
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
@@ -33,7 +42,7 @@ describe('Test creating a trip', () => {
       fare: 4500.0,
     }
     const response = await request(app)
-      .post('/api/v1/trips')
+      .post('/api/v2/trips')
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
@@ -50,7 +59,7 @@ describe('Test creating a trip', () => {
     }
 
     const response = await request(app)
-      .post('/api/v1/trips')
+      .post('/api/v2/trips')
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
@@ -66,7 +75,7 @@ describe('Test creating a trip', () => {
       fare: 4500.0,
     }
     const response = await request(app)
-      .post('/api/v1/trips')
+      .post('/api/v2/trips')
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
@@ -82,7 +91,7 @@ describe('Test creating a trip', () => {
       destination: 'Kigali',
     }
     const response = await request(app)
-      .post('/api/v1/trips')
+      .post('/api/v2/trips')
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
@@ -100,7 +109,7 @@ describe('Test creating a trip', () => {
       tripDate: '2019-10-15',
     }
     const response = await request(app)
-      .post('/api/v1/trips')
+      .post('/api/v2/trips')
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)

@@ -5,8 +5,9 @@
     "main": "index.js",
     "scripts": {
         "start": "babel-node index.js",
-        "start:dev": "DEBUG=log nodemon --exec babel-node index.js",
-        "test": "NODE_ENV=test jest --coverage --no-cache  --detectOpenHandles --runInBand --forceExit && cat ./tests/coverage/lcov.info | coveralls",
+        "create-tables": "babel-node server/database/createTables.js",
+        "start:dev": "yarn create-tables && DEBUG=log nodemon --exec babel-node index.js",
+        "test": " NODE_ENV=test yarn create-tables && jest --coverage --no-cache  --detectOpenHandles --runInBand --forceExit && cat ./tests/coverage/lcov.info | coveralls",
         "codecov": "codecov"
     },
     "repository": "git@github.com:danielotieno/way-farer-api.git",

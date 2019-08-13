@@ -1,51 +1,58 @@
-import moment from 'moment'
-import uuid from 'uuid'
+/* eslint-disable class-methods-use-this */
 import EncryptData from '../helpers/EncryptPassword'
+import db from '../database/dbConnection'
 
 class UserModel {
   // class constructor
 
-  constructor() {
-    this.users = []
-    this.createAdmin()
-  }
-
-  createAdmin() {
+  async createAdmin() {
     const admin = {
-      userId: uuid.v4(),
       firstName: 'super',
       lastName: 'admin',
       role: 'admin',
       email: 'super@lorem.com',
       password: EncryptData.generateHash('pass123456'),
-      date_created: moment().format('DD-MM-YYYY'),
     }
-    this.users.push(admin)
+    try {
+      const existingAdmin = await this.getUserByEmail(admin.email)
+      if (!existingAdmin) {
+        return await db.none(
+          'INSERT INTO users(first_name, last_name, role, email, password) VALUES($[firstName], $[lastName], $[role], $[email], $[password])',
+          admin,
+        )
+      }
+    } catch (error) {
+      return error
+    }
   }
 
   // Create a new Normal User
-  createUser(data) {
+  async createUser(data) {
     const newUser = {
-      userId: uuid.v4(),
       firstName: data.firstName,
       lastName: data.lastName,
       role: data.role || 'user',
       email: data.email,
       password: data.password,
-      date_created: moment().format('DD-MM-YYYY'),
     }
-    this.users.push(newUser)
-    return newUser
+    try {
+      return await db.none(
+        'INSERT INTO users(first_name, last_name, role, email, password) VALUES($[firstName], $[lastName], $[role], $[email], $[password])',
+        newUser,
+      )
+    } catch (error) {
+      return error
+    }
   }
 
   // Return an user with userId
-  getUserById(userId) {
-    return this.users.find(user => user.userId === userId)
+  async getUserById(userId) {
+    return db.oneOrNone('select * from users where user_id = $1', userId)
   }
 
   // Return an user with an email
-  getUserByEmail(email) {
-    return this.users.find(user => user.email === email)
+  async getUserByEmail(email) {
+    return db.oneOrNone('select * from users where email = $1', email)
   }
 }
 export default new UserModel()

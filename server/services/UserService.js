@@ -5,20 +5,33 @@ import config from '../config/config'
 
 class UserService {
   static async registerUser(req, res) {
-    const userExist = UserModel.getUserByEmail(req.body.email)
-    if (userExist)
-      return res.status(400).send({ status: 400, error: 'User already exists' })
-    req.body.password = EncryptData.generateHash(req.body.password)
-    req.body.role = 'user'
-    const getUser = UserModel.createUser(req.body)
-    const user = {
-      first_name: getUser.firstName,
-      last_name: getUser.lastName,
-      email: getUser.email,
+    try {
+      const existingUser = await UserModel.getUserByEmail(req.body.email)
+      if (existingUser)
+        return res
+          .status(400)
+          .send({ status: 400, error: 'User already exists' })
+      const { first_name: firstName, last_name: lastName, email } = req.body
+      const password = EncryptData.generateHash(req.body.password)
+      const role = 'user'
+      await UserModel.createUser({
+        firstName,
+        lastName,
+        email,
+        role,
+        password,
+      })
+      const user = {
+        first_name: firstName,
+        last_name: lastName,
+        email,
+      }
+      return res
+        .status(201)
+        .send({ status: 201, message: 'User created successfully', data: user })
+    } catch (error) {
+      return error
     }
-    return res
-      .status(201)
-      .send({ status: 201, message: 'User created successfully', data: user })
   }
 
   static async registerAdmin(req, res) {
@@ -33,15 +46,16 @@ class UserService {
 
   static async login(req, res) {
     const token = createToken(
-      { id: req.user.userId, role: req.user.role },
+      { id: req.user.user_id, role: req.user.role },
       config.secretKey,
       { expiresIn: config.jwtExpiration },
     )
+    const { first_name: firstName, last_name: lastName, email } = req.user
     const loggedInUser = {
       token,
-      first_name: req.user.firstName,
-      last_name: req.user.lastName,
-      email: req.user.email,
+      firstName,
+      lastName,
+      email,
     }
     return res.status(200).send({
       status: 200,

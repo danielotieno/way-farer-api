@@ -1,11 +1,20 @@
 import request from 'supertest'
-import app from '../../index'
+import start from '../../index'
 import getToken from '../testHelper'
+import tables from '../../database/tableSql'
+
+jest.setTimeout(10000)
 
 describe('Test get a specific Trip', () => {
   let token
-  beforeEach(async () => {
-    token = await getToken()
+  let app
+  beforeAll(async () => {
+    await tables.createTables()
+    app = await start()
+    token = await getToken(app)
+  })
+  afterAll(async () => {
+    await tables.dropTables()
   })
   test('It should respond with not found when passing wrong id', async () => {
     const response = await request(app)

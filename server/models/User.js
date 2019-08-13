@@ -46,8 +46,8 @@ class UserModel {
   }
 
   // Return an user with userId
-  getUserById(userId) {
-    return this.users.find(user => user.userId === userId)
+  async getUserById(userId) {
+    return db.oneOrNone('select * from users where user_id = $1', userId)
   }
 
   // Return an user with an email

@@ -10,9 +10,15 @@ const tripValidation = (req, res, next) => {
       .integer()
       .positive()
       .required(),
-    busNumber: Joi.string().required(),
-    origin: Joi.string().required(),
-    destination: Joi.string().required(),
+    busNumber: Joi.string()
+      .trim()
+      .required(),
+    origin: Joi.string()
+      .trim()
+      .required(),
+    destination: Joi.string()
+      .trim()
+      .required(),
     fare: Joi.number()
       .precision(2)
       .required(),
@@ -33,15 +39,26 @@ const tripValidation = (req, res, next) => {
   return next()
 }
 
-// Register User Validations
 const signupValidation = (req, res, next) => {
   const schema = {
-    first_name: Joi.string().required(),
-    last_name: Joi.string().required(),
+    first_name: Joi.string()
+      .regex(/^\S+$/)
+      .alphanum()
+      .min(3)
+      .max(30)
+      .required()
+      .label('first_name should not be empty or have whitespaces'),
+    last_name: Joi.string()
+      .regex(/^\S+$/)
+      .alphanum()
+      .min(3)
+      .max(30)
+      .required(),
     email: Joi.string()
       .email()
       .required(),
     password: Joi.string()
+      .regex(/^[a-zA-Z0-9]{3,30}$/)
       .min(8)
       .required(),
   }
@@ -56,13 +73,13 @@ const signupValidation = (req, res, next) => {
   return next()
 }
 
-// Login User Validations
 const loginValidation = (req, res, next) => {
   const schema = {
     email: Joi.string()
       .email()
       .required(),
     password: Joi.string()
+      .regex(/^[a-zA-Z0-9]{3,30}$/)
       .min(8)
       .required(),
   }
@@ -77,7 +94,6 @@ const loginValidation = (req, res, next) => {
   return next()
 }
 
-// Login User Validations
 const bookingValidation = (req, res, next) => {
   const schema = {
     tripId: Joi.string().required(),

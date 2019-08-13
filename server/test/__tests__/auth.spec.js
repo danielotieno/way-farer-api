@@ -64,7 +64,9 @@ describe('Test Authentication', () => {
       .post('/api/v2/auth/signup')
       .set('Content-Type', 'application/json')
       .send(payload)
-    expect(JSON.parse(response.text).error).toEqual('"first_name" is required')
+    expect(JSON.parse(response.text).error).toEqual(
+      '"first_name should not be empty or have whitespaces" is required',
+    )
     expect(response.status).toBe(400)
   })
 

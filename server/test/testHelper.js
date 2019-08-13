@@ -1,12 +1,11 @@
 import request from 'supertest'
-import app from '..'
 
-const signupUser = async () => {
+const signupUser = async app => {
   const payload = {
-    firstName: 'Daniel',
-    lastName: 'Otieno',
-    email: 'oti@gmail.com',
-    password: '123456789',
+    firstName: 'super',
+    lastName: 'lorem',
+    email: 'super@lorem.com',
+    password: 'pass123456',
   }
   await request(app)
     .post('/api/v2/auth/signup/admin')
@@ -14,7 +13,7 @@ const signupUser = async () => {
     .send(payload)
 }
 
-const loginUser = async () => {
+const loginUser = async app => {
   const payload = {
     email: 'super@lorem.com',
     password: 'pass123456',
@@ -27,9 +26,9 @@ const loginUser = async () => {
   return token
 }
 
-const getToken = async () => {
-  await signupUser()
-  const token = await loginUser()
+const getToken = async app => {
+  await signupUser(app)
+  const token = await loginUser(app)
   return token
 }
 

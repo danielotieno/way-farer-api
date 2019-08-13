@@ -11,13 +11,20 @@ class UserService {
         return res
           .status(400)
           .send({ status: 400, error: 'User already exists' })
-      req.body.password = EncryptData.generateHash(req.body.password)
-      req.body.role = 'user'
-      await UserModel.createUser(req.body)
+      const { first_name: firstName, last_name: lastName, email } = req.body
+      const password = EncryptData.generateHash(req.body.password)
+      const role = 'user'
+      await UserModel.createUser({
+        firstName,
+        lastName,
+        email,
+        role,
+        password,
+      })
       const user = {
-        first_name: req.body.firstName,
-        last_name: req.body.lastName,
-        email: req.body.email,
+        first_name: firstName,
+        last_name: lastName,
+        email,
       }
       return res
         .status(201)
@@ -39,15 +46,16 @@ class UserService {
 
   static async login(req, res) {
     const token = createToken(
-      { id: req.user.userId, role: req.user.role },
+      { id: req.user.user_id, role: req.user.role },
       config.secretKey,
       { expiresIn: config.jwtExpiration },
     )
+    const { first_name: firstName, last_name: lastName, email } = req.user
     const loggedInUser = {
       token,
-      first_name: req.user.first_name,
-      last_name: req.user.last_name,
-      email: req.user.email,
+      firstName,
+      lastName,
+      email,
     }
     return res.status(200).send({
       status: 200,

@@ -5,7 +5,7 @@ import db from '../database/dbConnection'
 class UserModel {
   // class constructor
 
-  createAdmin() {
+  async createAdmin() {
     const admin = {
       firstName: 'super',
       lastName: 'admin',
@@ -14,10 +14,13 @@ class UserModel {
       password: EncryptData.generateHash('pass123456'),
     }
     try {
-      db.none(
-        'INSERT INTO users(first_name, last_name, role, email, password) VALUES($[firstName], $[lastName], $[role], $[email], $[password])',
-        admin,
-      )
+      const existingAdmin = await this.getUserByEmail(admin.email)
+      if (!existingAdmin) {
+        return await db.none(
+          'INSERT INTO users(first_name, last_name, role, email, password) VALUES($[firstName], $[lastName], $[role], $[email], $[password])',
+          admin,
+        )
+      }
     } catch (error) {
       return error
     }

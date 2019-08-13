@@ -35,9 +35,12 @@ const createTables = async () => {
     await db.none(bookingTable)
     logger.info('Booking Table Created')
   } catch (error) {
-    logger.info('error occurred while creating tables', error)
-  } finally {
-    db.$pool.end()
+    logger.info(
+      'error occurred while creating tables closing db connection',
+      error,
+    )
+    await db.$pool.end()
+    logger.info('db connection pool closed')
   }
 }
 

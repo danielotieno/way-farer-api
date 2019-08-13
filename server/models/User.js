@@ -35,8 +35,8 @@ class UserModel {
       password: data.password,
     }
     try {
-      return await db.none(
-        'INSERT INTO users(first_name, last_name, role, email, password) VALUES($[firstName], $[lastName], $[role], $[email], $[password])',
+      return await db.one(
+        'INSERT INTO users(first_name, last_name, role, email, password) VALUES($[firstName], $[lastName], $[role], $[email], $[password]) RETURNING user_id',
         newUser,
       )
     } catch (error) {

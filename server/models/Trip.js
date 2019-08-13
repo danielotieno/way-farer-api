@@ -23,8 +23,8 @@ class Trip {
     }
   }
 
-  getAllTrips() {
-    return this.trips.filter(trip => trip.status === 'active')
+  async getAllTrips() {
+    return db.any('select * from trips')
   }
 
   getTripById(tripId) {

@@ -2,7 +2,14 @@ import TripModel from '../models/Trip'
 
 class TripService {
   static async postTrip(req, res) {
-    const { busNumber, tripDate } = req.body
+    const {
+      seating_capacity: seatingCapacity,
+      bus_number: busNumber,
+      origin,
+      destination,
+      fare,
+      trip_date: tripDate,
+    } = req.body
     const isTrip = await TripModel.getTripByBusNumberAndDate(
       busNumber,
       tripDate,
@@ -10,10 +17,28 @@ class TripService {
     if (isTrip) {
       return res.status(400).send({ status: 400, error: 'Trip already exists' })
     }
-    const trip = await TripModel.createTrip(req.body)
-    return res
-      .status(201)
-      .send({ status: 201, message: 'Trip created successfully', data: trip })
+    const createdTrip = await TripModel.createTrip({
+      seatingCapacity,
+      busNumber,
+      origin,
+      destination,
+      fare,
+      tripDate,
+    })
+    const returnTrip = {
+      trip_id: createdTrip.trip_id,
+      seating_capacity: seatingCapacity,
+      bus_number: busNumber,
+      origin,
+      destination,
+      fare,
+      trip_date: tripDate,
+    }
+    return res.status(201).send({
+      status: 201,
+      message: 'Trip created successfully',
+      data: returnTrip,
+    })
   }
 
   static async getAll(req, res) {

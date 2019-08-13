@@ -1,14 +1,10 @@
+/* eslint-disable class-methods-use-this */
 // Trip Model
-import uuid from 'uuid'
+import db from '../database/dbConnection'
 
 class Trip {
-  constructor() {
-    this.trips = []
-  }
-
-  createTrip(data) {
+  async createTrip(data) {
     const newTrip = {
-      tripId: uuid.v4(),
       seatingCapacity: data.seatingCapacity,
       busNumber: data.busNumber,
       origin: data.origin,
@@ -17,28 +13,14 @@ class Trip {
       status: data.status || 'active',
       tripDate: data.tripDate,
     }
-    const {
-      tripId,
-      seatingCapacity,
-      busNumber,
-      origin,
-      destination,
-      fare,
-      status,
-      tripDate,
-    } = newTrip
-    const formattedNewTrip = {
-      trip_id: tripId,
-      seating_capacity: seatingCapacity,
-      bus_number: busNumber,
-      origin,
-      destination,
-      fare,
-      status,
-      trip_date: tripDate,
+    try {
+      return await db.one(
+        'INSERT INTO trips(seating_capacity, bus_number, origin, destination, fare, status, trip_date) VALUES($[seatingCapacity], $[busNumber], $[origin], $[destination], $[fare], $[status], $[tripDate]) RETURNING trip_id',
+        newTrip,
+      )
+    } catch (error) {
+      return error
     }
-    this.trips.push(formattedNewTrip)
-    return formattedNewTrip
   }
 
   getAllTrips() {
@@ -59,9 +41,10 @@ class Trip {
     return this.trips.find(trip => trip.bus_number === busNumber)
   }
 
-  getTripByBusNumberAndDate(busNumber, tripDate) {
-    return this.trips.find(
-      trip => trip.bus_number === busNumber && trip.trip_date === tripDate,
+  async getTripByBusNumberAndDate(busNumber, tripDate) {
+    return db.oneOrNone(
+      'select * from trips where bus_number = $1 AND trip_date = $2',
+      [busNumber, tripDate],
     )
   }
 

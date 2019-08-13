@@ -17,9 +17,10 @@ const createTables = async () => {
     bus_number VARCHAR(250) NOT NULL,
     origin VARCHAR(250) NOT NULL,
     destination VARCHAR(50) NOT NULL,
-    trip_date date NOT NULL,
     fare NUMERIC NOT NULL,
-    status VARCHAR(250) NOT NULL DEFAULT 'active'
+    status VARCHAR(250) NOT NULL DEFAULT 'active',
+    trip_date date NOT NULL
+
 )`
   const bookingTable = `CREATE TABLE IF NOT EXISTS bookings (
     booking_id SERIAL PRIMARY KEY,

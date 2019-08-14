@@ -31,10 +31,12 @@ class Trip {
     return db.oneOrNone('select * from trips where trip_id = $1', tripId)
   }
 
-  cancelTrip(tripId) {
-    const trip = this.getTripById(tripId)
-    trip.status = 'cancelled'
-    return trip.status
+  async cancelTrip(tripId) {
+    const trip = await this.getTripById(tripId)
+    return db.none('update trips set status=$1 WHERE trip_id = $2', [
+      'cancelled',
+      trip.trip_id,
+    ])
   }
 
   getBusNumber(busNumber) {

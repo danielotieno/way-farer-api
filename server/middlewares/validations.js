@@ -96,8 +96,10 @@ const loginValidation = (req, res, next) => {
 
 const bookingValidation = (req, res, next) => {
   const schema = {
-    tripId: Joi.string().required(),
-    numberOfSeats: Joi.number()
+    trip_id: Joi.number()
+      .integer()
+      .required(),
+    number_of_seats: Joi.number()
       .integer()
       .required(),
   }

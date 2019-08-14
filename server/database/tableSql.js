@@ -24,9 +24,10 @@ const createTables = async () => {
 )`
   const bookingTable = `CREATE TABLE IF NOT EXISTS bookings (
     booking_id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users(user_id),
     trip_id INTEGER REFERENCES trips(trip_id),
-    number_of_seat INTEGER NOT NULL
+    number_of_seats INTEGER NOT NULL,
+    date_created TIMESTAMP with time zone DEFAULT now()
+
 )`
   try {
     await db.none(userTable)

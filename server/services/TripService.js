@@ -62,6 +62,34 @@ class TripService {
     })
   }
 
+  static async searchTrip(req, res) {
+    let filteredTrips
+    let searchParameter
+    if (req.query.origin) {
+      let { origin } = req.query
+      searchParameter = `origin ${origin}`
+      origin = `%${origin}%`
+      filteredTrips = await TripModel.filterByOrigin({ origin })
+    } else if (req.query.destination) {
+      searchParameter = 'destination'
+      let { destination } = req.query
+      searchParameter = `destination ${destination}`
+      destination = `%${destination}%`
+      filteredTrips = await TripModel.filterByDestination({ destination })
+    } else {
+      return res.status(400).send({
+        status: 400,
+        error: 'You can only search by origin and destination',
+      })
+    }
+    if (filteredTrips.length) {
+      return res.status(200).send({ Trips: filteredTrips })
+    }
+    return res
+      .status(404)
+      .send({ message: `no trips with ${searchParameter} found` })
+  }
+
   static async updateTripStatus(req, res) {
     const trip = await TripModel.getTripById(req.params.id)
     if (!trip) {

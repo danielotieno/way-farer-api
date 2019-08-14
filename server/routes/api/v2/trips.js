@@ -15,6 +15,7 @@ router.post(
   TripsController.createTrip,
 )
 router.get('/trips', jwtAuthentication, TripsController.getAllTrips)
+router.get('/trips/search', jwtAuthentication, TripsController.search)
 router.get('/trips/:id', jwtAuthentication, TripsController.getSingleTrip)
 router.put(
   '/trips/:id',

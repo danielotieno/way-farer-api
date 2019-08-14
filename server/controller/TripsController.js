@@ -17,6 +17,10 @@ class TripsController {
     TripService.updateTripStatus(req, res)
   }
 
+  static async search(req, res) {
+    TripService.searchTrip(req, res)
+  }
+
   static async updateTrip(req, res) {
     TripService.updatedTrip(req, res)
   }

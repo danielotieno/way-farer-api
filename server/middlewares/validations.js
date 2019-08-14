@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 // VALIDATIONS
 import Joi from '@hapi/joi'
 
@@ -11,15 +12,16 @@ const tripValidation = (req, res, next) => {
       .positive()
       .required(),
     bus_number: Joi.string()
-      .trim()
+      .alphanum()
       .required(),
     origin: Joi.string()
-      .trim()
+      .alphanum()
       .required(),
     destination: Joi.string()
-      .trim()
+      .alphanum()
       .required(),
     fare: Joi.number()
+      .min(1000)
       .precision(2)
       .required(),
     trip_date: Joi.date()
@@ -28,28 +30,41 @@ const tripValidation = (req, res, next) => {
       .required()
       .label('Date must be of format YYYY-MM-DD'),
   }
-  const { error } = Joi.validate(req.body, schema, { abortEarly: false })
+  const {
+    seating_capacity,
+    bus_number,
+    origin,
+    destination,
+    fare,
+    trip_date,
+  } = req.body
+  const tripData = {
+    seating_capacity,
+    bus_number: bus_number.trim(),
+    origin: origin.trim(),
+    destination: destination.trim(),
+    fare,
+    trip_date,
+  }
+  const { error } = Joi.validate(tripData, schema, { abortEarly: false })
 
   if (error) {
     return res
       .status(400)
       .send({ status: 'error', error: error.details[0].message })
   }
-
+  req.body = tripData
   return next()
 }
 
 const signupValidation = (req, res, next) => {
   const schema = {
     first_name: Joi.string()
-      .regex(/^\S+$/)
       .alphanum()
       .min(3)
       .max(30)
-      .required()
-      .label('first_name should not be empty or have whitespaces'),
+      .required(),
     last_name: Joi.string()
-      .regex(/^\S+$/)
       .alphanum()
       .min(3)
       .max(30)
@@ -62,14 +77,21 @@ const signupValidation = (req, res, next) => {
       .min(8)
       .required(),
   }
-  const { error } = Joi.validate(req.body, schema, { abortEarly: false })
+  const { first_name, last_name, email, password } = req.body
+  const userData = {
+    first_name: first_name.trim(),
+    last_name: last_name.trim(),
+    email,
+    password,
+  }
+  const { error } = Joi.validate(userData, schema, { abortEarly: false })
 
   if (error) {
     return res
       .status(400)
       .send({ status: 'error', error: error.details[0].message })
   }
-
+  req.body = userData
   return next()
 }
 

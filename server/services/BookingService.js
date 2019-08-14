@@ -28,22 +28,25 @@ class BookingService {
         message: 'You have already Booked this Trip',
       })
     }
+    const { seating_capacity: seatingCapacity } = trip
     const isSeatsAvailable = this.checkSeatingCapacity(
-      trip.seating_capacity,
+      seatingCapacity,
       numberOfSeats,
     )
     if (!isSeatsAvailable) {
       return res.status(202).send({
         status: 202,
-        message: `Booking failed, only ${trip.seating_capacity} seats available`,
+        message: `Booking failed, only ${seatingCapacity} seats available`,
       })
     }
-    req.body.userId = user.userId
+    const userId = req.user.id
     const booking = await Booking.createBooking({
+      userId,
       tripId,
       numberOfSeats,
     })
-    await TripModel.updateSeatingCapacity(tripId, numberOfSeats)
+    const updatedSeatingCapacity = seatingCapacity - numberOfSeats
+    await TripModel.updateSeatingCapacity(updatedSeatingCapacity, tripId)
     const bookedTrip = {
       booking_id: booking.booking_id,
       bus_number: trip.bus_number,
@@ -68,16 +71,20 @@ class BookingService {
     } else {
       bookings = await Booking.getBookingsByUserId(req.user.id)
     }
-
-    if (!bookings.length) {
+    if (!bookings) {
       return res.status(200).send({
         status: 200,
         message: 'There are no bookings',
       })
     }
-    const formattedBookings = await Promise.all(
-      bookings.map(booking => formatBooking(booking)),
-    )
+    let formattedBookings
+    if (bookings instanceof Array) {
+      formattedBookings = await Promise.all(
+        bookings.map(booking => formatBooking(booking)),
+      )
+    } else {
+      formattedBookings = await formatBooking(bookings)
+    }
     return res.status(200).send({
       status: 200,
       message: 'Successfully retrieve all bookings',

@@ -62,9 +62,11 @@ class Trip {
     return this.trips[index]
   }
 
-  async updateSeatingCapacity(tripId, bookedSeats) {
-    const trip = await this.getTripById(tripId)
-    trip.seating_capacity -= bookedSeats
+  async updateSeatingCapacity(updatedSeatingCapacity, tripId) {
+    return db.none('update trips set seating_capacity=$1 WHERE trip_id = $2', [
+      updatedSeatingCapacity,
+      tripId,
+    ])
   }
 }
 export default new Trip()

@@ -28,14 +28,15 @@ class BookingService {
         message: 'You have already Booked this Trip',
       })
     }
+    const { seating_capacity: seatingCapacity } = trip
     const isSeatsAvailable = this.checkSeatingCapacity(
-      trip.seating_capacity,
+      seatingCapacity,
       numberOfSeats,
     )
     if (!isSeatsAvailable) {
       return res.status(202).send({
         status: 202,
-        message: `Booking failed, only ${trip.seating_capacity} seats available`,
+        message: `Booking failed, only ${seatingCapacity} seats available`,
       })
     }
     const userId = req.user.id
@@ -44,7 +45,8 @@ class BookingService {
       tripId,
       numberOfSeats,
     })
-    await TripModel.updateSeatingCapacity(tripId, numberOfSeats)
+    const updatedSeatingCapacity = seatingCapacity - numberOfSeats
+    await TripModel.updateSeatingCapacity(updatedSeatingCapacity, tripId)
     const bookedTrip = {
       booking_id: booking.booking_id,
       bus_number: trip.bus_number,
@@ -69,7 +71,6 @@ class BookingService {
     } else {
       bookings = await Booking.getBookingsByUserId(req.user.id)
     }
-    console.log('Booking', bookings)
     if (!bookings) {
       return res.status(200).send({
         status: 200,

@@ -46,7 +46,6 @@ class UserModel {
 
   // Return an user with userId
   async getUserById(userId) {
-    console.log('User ID:', userId)
     return db.oneOrNone('select * from users where user_id = $1', userId)
   }
 

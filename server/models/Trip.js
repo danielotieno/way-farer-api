@@ -50,6 +50,17 @@ class Trip {
     )
   }
 
+  async filterByOrigin(origin) {
+    return db.any('select * from trips where origin ilike $[origin]', origin)
+  }
+
+  async filterByDestination(destination) {
+    return db.any(
+      'select * from trips where destination ilike $[destination]',
+      destination,
+    )
+  }
+
   updateTrip(tripId, data) {
     const trip = this.getTripById(tripId)
     const index = this.trips.indexOf(trip)

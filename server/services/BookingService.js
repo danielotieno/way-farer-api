@@ -38,8 +38,9 @@ class BookingService {
         message: `Booking failed, only ${trip.seating_capacity} seats available`,
       })
     }
-    req.body.userId = user.userId
+    const userId = req.user.id
     const booking = await Booking.createBooking({
+      userId,
       tripId,
       numberOfSeats,
     })
@@ -66,18 +67,23 @@ class BookingService {
     if (req.user.role === 'admin') {
       bookings = await Booking.getAllBookings()
     } else {
-      bookings = await UserModel.getUserById(req.user.id)
+      bookings = await Booking.getBookingsByUserId(req.user.id)
     }
-
+    console.log('Booking', bookings)
     if (!bookings) {
       return res.status(200).send({
         status: 200,
         message: 'There are no bookings',
       })
     }
-    const formattedBookings = await Promise.all(
-      bookings.map(booking => formatBooking(booking)),
-    )
+    let formattedBookings
+    if (bookings instanceof Array) {
+      formattedBookings = await Promise.all(
+        bookings.map(booking => formatBooking(booking)),
+      )
+    } else {
+      formattedBookings = await formatBooking(bookings)
+    }
     return res.status(200).send({
       status: 200,
       message: 'Successfully retrieve all bookings',

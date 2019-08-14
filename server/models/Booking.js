@@ -6,12 +6,13 @@ class Booking {
   // Create a new booking object
   async createBooking(data) {
     const newBooking = {
+      userId: data.userId,
       tripId: data.tripId,
       numberOfSeats: data.numberOfSeats,
     }
     try {
       return await db.one(
-        'INSERT INTO bookings(trip_id, number_of_seats) VALUES($[tripId], $[numberOfSeats]) RETURNING booking_id, date_created',
+        'INSERT INTO bookings(user_id, trip_id, number_of_seats) VALUES($[userId], $[tripId], $[numberOfSeats]) RETURNING booking_id, date_created',
         newBooking,
       )
     } catch (error) {
@@ -28,7 +29,7 @@ class Booking {
   }
 
   async getBookingsByUserId(userId) {
-    return this.bookings.filter(booking => booking.userId === userId)
+    return db.any('select * from bookings where user_id = $1', userId)
   }
 
   async getTripIdAndNumberOfSeats(tripId, numberOfSeats) {

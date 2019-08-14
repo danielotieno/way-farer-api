@@ -62,8 +62,8 @@ class Trip {
     return this.trips[index]
   }
 
-  updateSeatingCapacity(tripId, bookedSeats) {
-    const trip = this.getTripById(tripId)
+  async updateSeatingCapacity(tripId, bookedSeats) {
+    const trip = await this.getTripById(tripId)
     trip.seating_capacity -= bookedSeats
   }
 }

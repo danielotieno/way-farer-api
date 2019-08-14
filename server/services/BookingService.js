@@ -9,15 +9,25 @@ class BookingService {
   }
 
   static async postBooking(req, res) {
+    const { trip_id: tripId, number_of_seats: numberOfSeats } = req.body
     const user = await UserModel.getUserById(req.user.id)
-    const trip = await TripModel.getTripById(req.body.tripId)
+    const trip = await TripModel.getTripById(tripId)
     if (!user && !trip) {
       return res.status(400).send({
         status: 400,
         message: 'User or Trip must exist ',
       })
     }
-    const { numberOfSeats } = req.body
+    const isBookedTrip = await Booking.getTripIdAndNumberOfSeats(
+      tripId,
+      numberOfSeats,
+    )
+    if (isBookedTrip && user) {
+      return res.status(400).send({
+        status: 400,
+        message: 'You have already Booked this Trip',
+      })
+    }
     const isSeatsAvailable = this.checkSeatingCapacity(
       trip.seating_capacity,
       numberOfSeats,
@@ -29,17 +39,20 @@ class BookingService {
       })
     }
     req.body.userId = user.userId
-    const booking = await Booking.createBooking(req.body)
-    TripModel.updateSeatingCapacity(trip.trip_id, numberOfSeats)
+    const booking = await Booking.createBooking({
+      tripId,
+      numberOfSeats,
+    })
+    await TripModel.updateSeatingCapacity(tripId, numberOfSeats)
     const bookedTrip = {
-      booking_id: booking.bookingId,
-      bus_number: trip.busNumber,
-      trip_date: trip.tripDate,
-      first_name: user.firstName,
-      last_name: user.lastName,
+      booking_id: booking.booking_id,
+      bus_number: trip.bus_number,
+      trip_date: trip.trip_date,
+      first_name: user.first_name,
+      last_name: user.last_name,
       email: user.email,
-      number_of_seats: booking.numberOfSeats,
-      created_on: booking.createdOn,
+      number_of_seats: numberOfSeats,
+      date_created: booking.date_created,
     }
     return res.status(201).send({
       status: 201,

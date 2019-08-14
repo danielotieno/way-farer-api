@@ -1,24 +1,22 @@
+/* eslint-disable class-methods-use-this */
 // Booking Model
-import moment from 'moment'
-import uuid from 'uuid'
+import db from '../database/dbConnection'
 
 class Booking {
-  // class constructor
-  constructor() {
-    this.bookings = []
-  }
-
   // Create a new booking object
-  createBooking(data) {
+  async createBooking(data) {
     const newBooking = {
-      bookingId: uuid.v4(),
-      userId: data.userId,
       tripId: data.tripId,
       numberOfSeats: data.numberOfSeats,
-      createdOn: moment().format('DD-MM-YYYY'),
     }
-    this.bookings.push(newBooking)
-    return newBooking
+    try {
+      return await db.one(
+        'INSERT INTO bookings(trip_id, number_of_seats) VALUES($[tripId], $[numberOfSeats]) RETURNING booking_id, date_created',
+        newBooking,
+      )
+    } catch (error) {
+      return error
+    }
   }
 
   getAllBookings() {
@@ -31,6 +29,13 @@ class Booking {
 
   async getBookingsByUserId(userId) {
     return this.bookings.filter(booking => booking.userId === userId)
+  }
+
+  async getTripIdAndNumberOfSeats(tripId, numberOfSeats) {
+    return db.oneOrNone(
+      'select * from bookings where trip_id = $1 AND number_of_seats = $2',
+      [tripId, numberOfSeats],
+    )
   }
 
   deleteBooking(bookingId) {

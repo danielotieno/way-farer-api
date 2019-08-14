@@ -19,8 +19,8 @@ class Booking {
     }
   }
 
-  getAllBookings() {
-    return this.bookings
+  async getAllBookings() {
+    return db.any('select * from bookings')
   }
 
   getSpecificBooking(bookingId) {

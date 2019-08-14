@@ -66,10 +66,10 @@ class BookingService {
     if (req.user.role === 'admin') {
       bookings = await Booking.getAllBookings()
     } else {
-      bookings = await Booking.getBookingsByUserId(req.user.id)
+      bookings = await UserModel.getUserById(req.user.id)
     }
 
-    if (!bookings.length) {
+    if (!bookings) {
       return res.status(200).send({
         status: 200,
         message: 'There are no bookings',

@@ -13,7 +13,7 @@ const formatBooking = async booking => {
     last_name: user.lastName,
     email: user.email,
     number_of_seats: booking.numberOfSeats,
-    created_on: booking.createdOn,
+    date_created: booking.date_created,
   }
 
   return formattedBooking

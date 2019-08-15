@@ -98,9 +98,13 @@ class BookingService {
     if (!booking) {
       return res.status(404).send({ status: 404, error: 'Booking not found' })
     }
+    const { trip_id: tripId, number_of_seats: numberOfSeats } = booking
+    const trip = await TripModel.getTripById(tripId)
+    const updatedSeatingCapacity = trip.seating_capacity + numberOfSeats
     await Booking.deleteBooking(req.params.id)
-    return res.status(204).send({
-      status: 204,
+    await TripModel.updateSeatingCapacity(updatedSeatingCapacity, tripId)
+    return res.status(200).send({
+      status: 200,
       message: 'Booking deleted successfully',
     })
   }

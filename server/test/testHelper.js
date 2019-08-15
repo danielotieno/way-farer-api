@@ -2,8 +2,8 @@ import request from 'supertest'
 
 const signupUser = async app => {
   const payload = {
-    firstName: 'super',
-    lastName: 'lorem',
+    first_name: 'super',
+    last_name: 'lorem',
     email: 'super@lorem.com',
     password: 'pass123456',
   }

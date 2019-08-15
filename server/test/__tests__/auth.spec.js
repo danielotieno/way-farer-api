@@ -54,7 +54,7 @@ describe('Test Authentication', () => {
     expect(response.status).toBe(400)
   })
 
-  test('Admin already exists when creating admin with the same email', async () => {
+  test.only('Admin already exists when creating admin with the same email', async () => {
     const payload = {
       last_name: 'Otieno',
       email: 'oti@gmail.com',

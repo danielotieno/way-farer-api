@@ -9,12 +9,12 @@ const envVarsSchema = Joi.object({
     .allow(['development', 'production', 'test'])
     .required(),
   PORT: Joi.number().default(8080),
-  DATABASE: Joi.string().required(),
+  DATABASE: Joi.string().default('wayfarerdb'),
   TEST_DB: Joi.string().default('wayfarertestdb'),
   DATABASE_PASSWORD: Joi.string().default(null),
   DATABASE_USER: Joi.string().default('postgres'),
   DATABASE_URL: Joi.string().default(null),
-  HOST: Joi.string().required(),
+  HOST: Joi.string().default('localhost'),
   SECRET_KEY: Joi.string().required(),
   JWT_EXPIRATION: Joi.string().required(),
 })

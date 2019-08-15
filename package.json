@@ -4,7 +4,7 @@
     "description": "WayFarer is a public bus transportation booking service.",
     "main": "index.js",
     "scripts": {
-        "start": "npm create-tables && babel-node index.js",
+        "start": "yarn create-tables && babel-node index.js",
         "create-tables": "babel-node server/database/createTables.js",
         "start:dev": "yarn create-tables && DEBUG=log nodemon --exec babel-node index.js",
         "test": " NODE_ENV=test yarn create-tables && jest --coverage --no-cache  --detectOpenHandles --runInBand --forceExit && cat ./tests/coverage/lcov.info | coveralls",

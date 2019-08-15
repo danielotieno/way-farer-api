@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/danielotieno/way-farer-api.svg?branch=develop)](https://travis-ci.org/danielotieno/way-farer-api)
-[![Test Coverage](https://api.codeclimate.com/v2/badges/89c988eb1fc6305e7577/test_coverage)](https://codeclimate.com/github/danielotieno/way-farer-api/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v2/badges/89c988eb1fc6305e7577/maintainability)](https://codeclimate.com/github/danielotieno/way-farer-api/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/89c988eb1fc6305e7577/maintainability)](https://codeclimate.com/github/danielotieno/way-farer-api/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/89c988eb1fc6305e7577/test_coverage)](https://codeclimate.com/github/danielotieno/way-farer-api/test_coverage)
+
 
 # Welcome to WayFare Booking Service API
 

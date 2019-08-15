@@ -54,7 +54,7 @@ describe('Test Authentication', () => {
     expect(response.status).toBe(400)
   })
 
-  test.only('Admin already exists when creating admin with the same email', async () => {
+  test('Admin already exists when creating admin with the same email', async () => {
     const payload = {
       last_name: 'Otieno',
       email: 'oti@gmail.com',
@@ -64,9 +64,7 @@ describe('Test Authentication', () => {
       .post('/api/v2/auth/signup')
       .set('Content-Type', 'application/json')
       .send(payload)
-    expect(JSON.parse(response.text).error).toEqual(
-      '"first_name should not be empty or have whitespaces" is required',
-    )
+    expect(JSON.parse(response.text).error).toEqual('"first_name" is required')
     expect(response.status).toBe(400)
   })
 

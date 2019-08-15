@@ -16,13 +16,14 @@ describe('Test get all Bookings', () => {
   afterAll(async () => {
     await tables.dropTables()
   })
-  test('It should return no bookings when booking array is empty', async () => {
+  test('It should return all bookings', async () => {
     const response = await request(app)
       .get('/api/v2/bookings')
       .set('Authorization', `Bearer ${token}`)
     expect(JSON.parse(response.text).status).toEqual(200)
-    expect(JSON.parse(response.text).message).toEqual('There are no bookings')
-
+    expect(JSON.parse(response.text).message).toEqual(
+      'Successfully retrieve all bookings',
+    )
     expect(response.status).toBe(200)
   })
 })

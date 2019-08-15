@@ -26,12 +26,12 @@ describe('Test get a specific Trip', () => {
 
   test('It should retrive back a trip with specific ID', async () => {
     const payload = {
-      seatingCapacity: 24,
-      busNumber: 'RAD 264 K',
+      seating_capacity: 24,
+      bus_number: 'RAD 264 K',
       origin: 'Mombasa',
       destination: 'Kigali',
-      fare: 4600.0,
-      tripDate: '2019-08-27',
+      fare: 4600,
+      trip_date: '2019-08-27',
     }
     const { body } = await request(app)
       .post('/api/v2/trips')
@@ -45,7 +45,7 @@ describe('Test get a specific Trip', () => {
     expect(response.body.data).toHaveProperty('bus_number', 'RAD 264 K')
     expect(response.body.data).toHaveProperty('origin', 'Mombasa')
     expect(response.body.data).toHaveProperty('destination', 'Kigali')
-    expect(response.body.data).toHaveProperty('fare', 4600.0)
+    expect(response.body.data).toHaveProperty('fare', '4600')
     expect(JSON.parse(response.text).status).toEqual(200)
     expect(JSON.parse(response.text).message).toEqual(
       'Successfully retrieved a Trip',

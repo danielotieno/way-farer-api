@@ -12,15 +12,16 @@ const tripValidation = (req, res, next) => {
       .positive()
       .required(),
     bus_number: Joi.string()
-      .alphanum()
+      .trim()
       .required(),
     origin: Joi.string()
-      .alphanum()
+      .trim()
       .required(),
     destination: Joi.string()
-      .alphanum()
+      .trim()
       .required(),
     fare: Joi.number()
+      .integer()
       .min(1000)
       .precision(2)
       .required(),
@@ -29,6 +30,14 @@ const tripValidation = (req, res, next) => {
       .raw()
       .required()
       .label('Date must be of format YYYY-MM-DD'),
+  }
+
+  const { error } = Joi.validate(req.body, schema, { abortEarly: false })
+
+  if (error) {
+    return res
+      .status(400)
+      .send({ status: 'error', error: error.details[0].message })
   }
   const {
     seating_capacity,
@@ -45,13 +54,6 @@ const tripValidation = (req, res, next) => {
     destination: destination.trim(),
     fare,
     trip_date,
-  }
-  const { error } = Joi.validate(tripData, schema, { abortEarly: false })
-
-  if (error) {
-    return res
-      .status(400)
-      .send({ status: 'error', error: error.details[0].message })
   }
   req.body = tripData
   return next()
@@ -91,7 +93,6 @@ const signupValidation = (req, res, next) => {
     email,
     password,
   } = req.body
-  console.log(firstName)
   const userData = {
     first_name: firstName.trim(),
     last_name: lastName.trim(),

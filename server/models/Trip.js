@@ -27,6 +27,10 @@ class Trip {
     return db.any('select * from trips')
   }
 
+  async getTripsByStatus(status) {
+    return db.any('select * from trips where status = $1', status)
+  }
+
   async getTripById(tripId) {
     return db.oneOrNone('select * from trips where trip_id = $1', tripId)
   }
@@ -59,18 +63,6 @@ class Trip {
       'select * from trips where destination ilike $[destination]',
       destination,
     )
-  }
-
-  updateTrip(tripId, data) {
-    const trip = this.getTripById(tripId)
-    const index = this.trips.indexOf(trip)
-    this.trips[index].seatingCapacity =
-      data.seatingCapacity || trip.seatingCapacity
-    this.trips[index].busNumber = data.busNumber || trip.busNumber
-    this.trips[index].origin = data.origin || trip.origin
-    this.trips[index].destination = data.destination || trip.destination
-    this.trips[index].fare = data.fare || trip.fare
-    return this.trips[index]
   }
 
   async updateSeatingCapacity(updatedSeatingCapacity, tripId) {

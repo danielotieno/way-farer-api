@@ -21,9 +21,7 @@ describe('Test get all Trips', () => {
       .get('/api/v2/trips')
       .set('Authorization', `Bearer ${token}`)
     expect(JSON.parse(response.text).status).toEqual(200)
-    expect(JSON.parse(response.text).message).toEqual(
-      'Trips retrieved successfully',
-    )
+    expect(JSON.parse(response.text).message).toEqual('No Trips available')
     expect(response.status).toBe(200)
   })
 })

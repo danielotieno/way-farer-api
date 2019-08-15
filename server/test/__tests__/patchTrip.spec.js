@@ -26,12 +26,12 @@ describe('Test PATCH a specific Trip', () => {
 
   test('It should retrive back a cancelled trip', async () => {
     const payload = {
-      seatingCapacity: 24,
-      busNumber: 'RAD 264 K',
+      seating_capacity: 24,
+      bus_number: 'RAD 264 K',
       origin: 'Mombasa',
       destination: 'Kigali',
-      fare: 4600.0,
-      tripDate: '2019-08-27',
+      fare: 4600,
+      trip_date: '2019-08-27',
     }
     const { body } = await request(app)
       .post('/api/v2/trips')

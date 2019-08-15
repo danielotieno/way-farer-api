@@ -12,15 +12,16 @@ const tripValidation = (req, res, next) => {
       .positive()
       .required(),
     bus_number: Joi.string()
-      .alphanum()
+      .trim()
       .required(),
     origin: Joi.string()
-      .alphanum()
+      .trim()
       .required(),
     destination: Joi.string()
-      .alphanum()
+      .trim()
       .required(),
     fare: Joi.number()
+      .integer()
       .min(1000)
       .precision(2)
       .required(),
@@ -29,6 +30,14 @@ const tripValidation = (req, res, next) => {
       .raw()
       .required()
       .label('Date must be of format YYYY-MM-DD'),
+  }
+
+  const { error } = Joi.validate(req.body, schema, { abortEarly: false })
+
+  if (error) {
+    return res
+      .status(400)
+      .send({ status: 'error', error: error.details[0].message })
   }
   const {
     seating_capacity,
@@ -46,13 +55,6 @@ const tripValidation = (req, res, next) => {
     fare,
     trip_date,
   }
-  const { error } = Joi.validate(tripData, schema, { abortEarly: false })
-
-  if (error) {
-    return res
-      .status(400)
-      .send({ status: 'error', error: error.details[0].message })
-  }
   req.body = tripData
   return next()
 }
@@ -60,7 +62,7 @@ const tripValidation = (req, res, next) => {
 const signupValidation = (req, res, next) => {
   const schema = {
     first_name: Joi.string()
-      .alphanum()
+      .trim()
       .min(3)
       .max(30)
       .required(),
@@ -77,19 +79,25 @@ const signupValidation = (req, res, next) => {
       .min(8)
       .required(),
   }
-  const { first_name, last_name, email, password } = req.body
-  const userData = {
-    first_name: first_name.trim(),
-    last_name: last_name.trim(),
-    email,
-    password,
-  }
-  const { error } = Joi.validate(userData, schema, { abortEarly: false })
+
+  const { error } = Joi.validate(req.body, schema, { abortEarly: false })
 
   if (error) {
     return res
       .status(400)
       .send({ status: 'error', error: error.details[0].message })
+  }
+  const {
+    first_name: firstName,
+    last_name: lastName,
+    email,
+    password,
+  } = req.body
+  const userData = {
+    first_name: firstName.trim(),
+    last_name: lastName.trim(),
+    email,
+    password,
   }
   req.body = userData
   return next()

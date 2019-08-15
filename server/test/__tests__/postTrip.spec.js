@@ -18,7 +18,7 @@ describe('Test creating a trip', () => {
   })
   test('Create a trip without seating capacity', async () => {
     const payload = {
-      busNumber: 'RAD 254 J',
+      bus_number: 'RAD 254 J',
       origin: 'Mombasa',
       destination: 'Kigali',
       fare: 4500.0,
@@ -29,14 +29,14 @@ describe('Test creating a trip', () => {
       .set('Content-Type', 'application/json')
       .send(payload)
     expect(JSON.parse(response.text).error).toEqual(
-      '"seatingCapacity" is required',
+      '"seating_capacity" is required',
     )
     expect(response.status).toBe(400)
   })
 
   test('Create a trip without bus number', async () => {
     const payload = {
-      seatingCapacity: 10,
+      seating_capacity: 10,
       origin: 'Mombasa',
       destination: 'Kigali',
       fare: 4500.0,
@@ -46,14 +46,14 @@ describe('Test creating a trip', () => {
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')
       .send(payload)
-    expect(JSON.parse(response.text).error).toEqual('"busNumber" is required')
+    expect(JSON.parse(response.text).error).toEqual('"bus_number" is required')
     expect(response.status).toBe(400)
   })
 
   test('Create a trip without origin', async () => {
     const payload = {
-      seatingCapacity: 10,
-      busNumber: 'RAD 264 K',
+      seating_capacity: 10,
+      bus_number: 'RAD 264 K',
       destination: 'Kigali',
       fare: 4500.0,
     }
@@ -69,8 +69,8 @@ describe('Test creating a trip', () => {
 
   test('Create a trip without destination', async () => {
     const payload = {
-      seatingCapacity: 10,
-      busNumber: 'RAD 264 K',
+      seating_capacity: 10,
+      bus_number: 'RAD 264 K',
       origin: 'Mombasa',
       fare: 4500.0,
     }
@@ -85,8 +85,8 @@ describe('Test creating a trip', () => {
 
   test('Create a trip without fare', async () => {
     const payload = {
-      seatingCapacity: 10,
-      busNumber: 'RAD 264 K',
+      seating_capacity: 10,
+      bus_number: 'RAD 264 K',
       origin: 'Mombasa',
       destination: 'Kigali',
     }
@@ -101,12 +101,12 @@ describe('Test creating a trip', () => {
 
   test('Create a trip successfully', async () => {
     const payload = {
-      seatingCapacity: 10,
-      busNumber: 'RAD 264 K',
+      seating_capacity: 10,
+      bus_number: 'RAD 264 K',
       origin: 'Mombasa',
       destination: 'Kigali',
       fare: 4600.0,
-      tripDate: '2019-10-15',
+      trip_date: '2019-10-15',
     }
     const response = await request(app)
       .post('/api/v2/trips')

@@ -18,12 +18,12 @@ describe('Test POST a Booking', () => {
   })
   test('It should be able to create a booking', async () => {
     const payload = {
-      seatingCapacity: 24,
-      busNumber: 'RAD 254 J',
+      seating_capacity: 24,
+      bus_number: 'RAD 254 J',
       origin: 'Mombasa',
       destination: 'Kigali',
       fare: 4500.0,
-      tripDate: '2019-08-27',
+      trip_date: '2019-08-27',
     }
     const response = await request(app)
       .post('/api/v2/trips')
@@ -34,8 +34,8 @@ describe('Test POST a Booking', () => {
     const { trip_id: tripId } = result.data
 
     const booking = {
-      tripId,
-      numberOfSeats: 4,
+      trip_id: tripId,
+      number_of_seats: 4,
     }
     const res = await request(app)
       .post('/api/v2/bookings')

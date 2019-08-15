@@ -24,7 +24,6 @@ describe('Test get all Trips', () => {
     expect(JSON.parse(response.text).message).toEqual(
       'Trips retrieved successfully',
     )
-
     expect(response.status).toBe(200)
   })
 })

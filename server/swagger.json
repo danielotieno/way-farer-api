@@ -5,8 +5,8 @@
         "version": "1.0.0",
         "title": "WayFarer API"
     },
-    "host": "virtserver.swaggerhub.com",
-    "basePath": "/danielotienoke/WayFarerAPI/1.0.0",
+    "host": "wayfarer-api-app.herokuapp.com",
+    "basePath": "",
     "tags": [
         {
             "name": "Trip",

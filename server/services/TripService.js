@@ -42,7 +42,18 @@ class TripService {
   }
 
   static async getAll(req, res) {
-    const trips = await TripModel.getAllTrips()
+    let trips
+    if (req.user.role === 'admin') {
+      trips = await TripModel.getAllTrips()
+    } else {
+      trips = await TripModel.getTripsByStatus('active')
+    }
+    if (!trips.length) {
+      return res.status(200).send({
+        status: 200,
+        message: 'No Trips available',
+      })
+    }
     return res.status(200).send({
       status: 200,
       message: 'Trips retrieved successfully',

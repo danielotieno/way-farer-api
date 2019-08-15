@@ -3,6 +3,7 @@ import Booking from '../models/Booking'
 import UserModel from '../models/User'
 import TripModel from '../models/Trip'
 import formatBooking from '../helpers/formatBookings'
+import isDatePast from '../helpers/dateHelper'
 
 class BookingService {
   static checkSeatingCapacity(seatingCapacity, bookedSeats) {
@@ -17,6 +18,12 @@ class BookingService {
       return res.status(400).send({
         status: 400,
         message: 'User or Trip must exist ',
+      })
+    }
+    if (isDatePast(trip.trip_date)) {
+      return res.status(400).send({
+        status: 400,
+        message: 'You cannot book a trip with past date',
       })
     }
     const isBookedTrip = await Booking.getTripIdAndNumberOfSeats(

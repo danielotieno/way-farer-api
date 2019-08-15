@@ -24,8 +24,11 @@ class Booking {
     return db.any('select * from bookings')
   }
 
-  getSpecificBooking(bookingId) {
-    return this.bookings.find(booking => booking.bookingId === bookingId)
+  async getSpecificBooking(bookingId) {
+    return db.oneOrNone(
+      'select * from bookings where booking_id = $1',
+      bookingId,
+    )
   }
 
   async getBookingsByUserId(userId) {
@@ -39,11 +42,8 @@ class Booking {
     )
   }
 
-  deleteBooking(bookingId) {
-    const booking = this.getSpecificBooking(bookingId)
-    const index = this.bookings.indexOf(booking)
-    this.bookings.splice(index, 1)
-    return 'Booking deleted successfully'
+  async deleteBooking(bookingId) {
+    await db.result('delete from bookings where booking_id = $1', bookingId)
   }
 }
 export default new Booking()

@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 import Booking from '../models/Booking'
 import UserModel from '../models/User'
 import TripModel from '../models/Trip'
@@ -93,12 +94,15 @@ class BookingService {
   }
 
   static async deleteBooking(req, res) {
-    const booking = Booking.getSpecificBooking(req.params.id)
+    const booking = await Booking.getSpecificBooking(req.params.id)
     if (!booking) {
       return res.status(404).send({ status: 404, error: 'Booking not found' })
     }
-    const message = Booking.deleteBooking(req.params.id)
-    return res.status(204).send({ status: 204, message })
+    await Booking.deleteBooking(req.params.id)
+    return res.status(204).send({
+      status: 204,
+      message: 'Booking deleted successfully',
+    })
   }
 }
 export default BookingService

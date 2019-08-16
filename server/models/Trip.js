@@ -43,10 +43,6 @@ class Trip {
     ])
   }
 
-  getBusNumber(busNumber) {
-    return this.trips.find(trip => trip.bus_number === busNumber)
-  }
-
   async getTripByBusNumberAndDate(busNumber, tripDate) {
     return db.oneOrNone(
       'select * from trips where bus_number = $1 AND trip_date = $2',

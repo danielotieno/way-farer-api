@@ -17,13 +17,7 @@ router.post(
 router.get('/trips', jwtAuthentication, TripsController.getAllTrips)
 router.get('/trips/search', jwtAuthentication, TripsController.search)
 router.get('/trips/:id', jwtAuthentication, TripsController.getSingleTrip)
-router.put(
-  '/trips/:id',
-  jwtAuthentication,
-  isAdmin,
-  tripValidation,
-  TripsController.updateTrip,
-)
+
 router.patch(
   '/trips/:id/cancel',
   jwtAuthentication,

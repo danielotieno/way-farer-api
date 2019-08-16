@@ -27,7 +27,7 @@ describe('Test get a specific Trip', () => {
   test('It should retrive back a trip with specific ID', async () => {
     const payload = {
       seating_capacity: 24,
-      bus_number: 'RAD 264 K',
+      bus_number: 'RAD264K',
       origin: 'Mombasa',
       destination: 'Kigali',
       fare: 4600,
@@ -42,7 +42,7 @@ describe('Test get a specific Trip', () => {
       .get(`/api/v2/trips/${body.data.trip_id}`)
       .set('Authorization', `Bearer ${token}`)
     expect(response.body.data).toHaveProperty('seating_capacity', 24)
-    expect(response.body.data).toHaveProperty('bus_number', 'RAD 264 K')
+    expect(response.body.data).toHaveProperty('bus_number', 'RAD264K')
     expect(response.body.data).toHaveProperty('origin', 'Mombasa')
     expect(response.body.data).toHaveProperty('destination', 'Kigali')
     expect(response.body.data).toHaveProperty('fare', '4600')

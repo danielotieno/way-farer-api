@@ -19,7 +19,7 @@ describe('Test POST a Booking', () => {
   test('It should be able to create a booking', async () => {
     const payload = {
       seating_capacity: 24,
-      bus_number: 'RAD 254 J',
+      bus_number: 'RAD254J',
       origin: 'Mombasa',
       destination: 'Kigali',
       fare: 4500.0,

@@ -12,12 +12,15 @@ const tripValidation = (req, res, next) => {
       .positive()
       .required(),
     bus_number: Joi.string()
+      .alphanum()
       .trim()
       .required(),
     origin: Joi.string()
+      .alphanum()
       .trim()
       .required(),
     destination: Joi.string()
+      .alphanum()
       .trim()
       .required(),
     fare: Joi.number()
@@ -62,12 +65,14 @@ const tripValidation = (req, res, next) => {
 const signupValidation = (req, res, next) => {
   const schema = {
     first_name: Joi.string()
+      .alphanum()
       .trim()
       .min(3)
       .max(30)
       .required(),
     last_name: Joi.string()
       .alphanum()
+      .trim()
       .min(3)
       .max(30)
       .required(),

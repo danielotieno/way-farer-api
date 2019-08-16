@@ -6,8 +6,6 @@ import UserModel from './models/User'
 
 const app = express()
 
-// Body Parser middleware
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 

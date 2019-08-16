@@ -122,16 +122,5 @@ class TripService {
       message: 'Trip cancelled successfully',
     })
   }
-
-  static async updatedTrip(req, res) {
-    const trip = TripModel.getTripById(req.params.id)
-    if (!trip) {
-      return res.status(404).send({ message: 'Trip not found' })
-    }
-    const updatedTrip = TripModel.updateTrip(req.params.id, req.body)
-    return res
-      .status(200)
-      .send({ message: 'Trip Updated successfully', updatedTrip })
-  }
 }
 export default TripService

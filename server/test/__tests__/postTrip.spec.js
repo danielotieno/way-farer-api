@@ -53,7 +53,7 @@ describe('Test creating a trip', () => {
   test('Create a trip without origin', async () => {
     const payload = {
       seating_capacity: 10,
-      bus_number: 'RAD 264 K',
+      bus_number: 'RAD264K',
       destination: 'Kigali',
       fare: 4500.0,
     }
@@ -70,7 +70,7 @@ describe('Test creating a trip', () => {
   test('Create a trip without destination', async () => {
     const payload = {
       seating_capacity: 10,
-      bus_number: 'RAD 264 K',
+      bus_number: 'RAD264K',
       origin: 'Mombasa',
       fare: 4500.0,
     }
@@ -86,7 +86,7 @@ describe('Test creating a trip', () => {
   test('Create a trip without fare', async () => {
     const payload = {
       seating_capacity: 10,
-      bus_number: 'RAD 264 K',
+      bus_number: 'RAD264K',
       origin: 'Mombasa',
       destination: 'Kigali',
     }
@@ -102,7 +102,7 @@ describe('Test creating a trip', () => {
   test('Create a trip successfully', async () => {
     const payload = {
       seating_capacity: 10,
-      bus_number: 'RAD 264 K',
+      bus_number: 'RAD264K',
       origin: 'Mombasa',
       destination: 'Kigali',
       fare: 4600.0,
